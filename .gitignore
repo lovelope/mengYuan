@@ -57,8 +57,16 @@ typings/
 # dotenv environment variables file
 .env
 
-# IDE
+# IDE or Editor
 .idea/
+.vscode/
+
+# File cache
+.DS_Store
+._.DS_Store
+desktop.ini
+Desktop.ini
 
 # Output
-dist/
+static/output/dist/
+static/output/upload/
