@@ -8,7 +8,18 @@ const user = {
    * @return {object}       mysql执行结果
    */
   async create (model) {
-    let result = await dbUtils.insertData('user_info', model)
+    let me = this
+    let result
+    if (!me.getExistOne(model)) {
+      result = await dbUtils.insertData('user', model)
+    } else {
+      result = {
+        code: 'FAIL_USER_NAME_IS_EXIST',
+        result: false,
+        message: '用户已存在',
+        data: {}
+      }
+    }
     return result
   },
 
@@ -19,7 +30,7 @@ const user = {
    */
   async getExistOne (options) {
     let _sql = `
-    SELECT * from user_info
+    SELECT * from user
       where email="${options.email}" or name="${options.name}"
       limit 1`
     let result = await dbUtils.query(_sql)
@@ -38,7 +49,7 @@ const user = {
    */
   async getOneByUserNameAndPassword (options) {
     let _sql = `
-    SELECT * from user_info
+    SELECT * from user
       where password="${options.password}" and name="${options.name}"
       limit 1`
     let result = await dbUtils.query(_sql)
@@ -57,7 +68,7 @@ const user = {
    */
   async getUserInfoByUserName (userName) {
     let result = await dbUtils.select(
-      'user_info', [ 'id', 'email', 'name', 'detail_info', 'create_time', 'modified_time', 'modified_time' ])
+      'user', [ 'id', 'email', 'name', 'detail_info', 'create_time', 'modified_time', 'modified_time' ])
     if (Array.isArray(result) && result.length > 0) {
       result = result[0]
     } else {
