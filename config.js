@@ -4,10 +4,10 @@ const config = {
 
   database: {
     DATABASE: 'mengyuan',
-    USERNAME: 'root',
-    PASSWORD: 'passph123',
+    USERNAME: 'clare',
+    PASSWORD: 'pass369.2',
     PORT: '3306',
-    HOST: 'localhost'
+    HOST: '172.19.25.63'
   }
 }
 
