@@ -83,7 +83,7 @@ module.exports = {
       password: formData.password,
       name: formData.userName,
       create_time: new Date().getTime(),
-      level: 1
+      level: 2
     })
 
     console.log(userResult)

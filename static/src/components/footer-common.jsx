@@ -7,7 +7,7 @@ class FooterCommon extends React.Component {
   render () {
     return (
       <Footer style={{ textAlign: 'center' }}>
-        Hello World ©2017 Created by hello world
+        MengYuan ©2017 Created by mengYuan
       </Footer>
     )
   }
