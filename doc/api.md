@@ -43,3 +43,49 @@
   "data": {}
 }
 ```
+
+## 添加发布信息
+
+### 接口地址
+
+`http://${config.apiServer.host}:${config.apiServer.port}/api/message/add`
+
+### 入参
+
+| 字段名  | 类型                               | 说明                   | 示例                |
+|---------|------------------------------------|------------------------|---------------------|
+| wechat  | String                             | 微信号                 | wechat11            |
+| type    | enum('String', 'Picture', 'Video') | 消息类型               | String              |
+| title   | String                             | 标题                   | 今天天气不错        |
+| topic   | String                             | 话题(使用半角分号分隔) | 天气;晴朗           |
+| content | String                             | 内容数据               | 今天天气不错,很晴朗 |
+
+### 入参示例
+
+```json
+{
+  "wechat": "wechat11",
+  "type": "String",
+  "title": "今天天气不错",
+  "topic": "天气;晴朗",
+  "content": "今天天气不错,很晴朗"
+}
+```
+
+### 回参
+
+| 字段名      | 类型                    | 说明               | 示例                |
+| ----------- | ----------------------- | ------------------ | ------------------- |
+| code        | Number:Int              |   代码             | 0                   |
+| message     | String                  |   说明信息         | "操作成功"          |
+| data        | Object/Array            |   数据             |  {}                 |
+
+### 回参示例
+
+```json
+{
+  "code": 0,
+  "message": "操作成功",
+  "data": {}
+}
+```
