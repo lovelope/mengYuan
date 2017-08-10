@@ -34,7 +34,7 @@
 | message     | String                  |   说明信息         | "操作成功"          |
 | data        | Object|Array            |   数据             |  {}                 |
 
-### 入参示例
+### 回参示例
 
 ```json
 {
