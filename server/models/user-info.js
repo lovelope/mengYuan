@@ -8,18 +8,7 @@ const user = {
    * @return {object}       mysql执行结果
    */
   async create (model) {
-    let me = this
-    let result
-    if (!me.getExistOne(model)) {
-      result = await dbUtils.insertData('user', model)
-    } else {
-      result = {
-        code: 'FAIL_USER_NAME_IS_EXIST',
-        result: false,
-        message: '用户已存在',
-        data: {}
-      }
-    }
+    let result = await dbUtils.insertData('user', model)
     return result
   },
 
@@ -31,7 +20,7 @@ const user = {
   async getExistOne (options) {
     let _sql = `
     SELECT * from user
-      where email="${options.email}" or name="${options.name}"
+      where email="${options.email}" or wechat="${options.wechat}"
       limit 1`
     let result = await dbUtils.query(_sql)
     if (Array.isArray(result) && result.length > 0) {

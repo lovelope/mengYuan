@@ -4,7 +4,7 @@
 
 ### 接口地址
 
-`http://172.18.33.2/api/user/signup`
+`http://${config.apiServer.host}:${config.apiServer.port}/api/user/signup`
 
 ### 入参
 
@@ -32,7 +32,7 @@
 | ----------- | ----------------------- | ------------------ | ------------------- |
 | code        | Number:Int              |   代码             | 0                   |
 | message     | String                  |   说明信息         | "操作成功"          |
-| data        | Object|Array            |   数据             |  {}                 |
+| data        | Object/Array            |   数据             |  {}                 |
 
 ### 回参示例
 

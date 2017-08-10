@@ -2,7 +2,7 @@
  * 用户业务操作
  */
 
-const validator = require('validator')
+// const validator = require('validator')
 const userModel = require('./../models/user-info')
 const userCode = require('./../codes/user')
 
@@ -25,8 +25,7 @@ const user = {
    */
   async getExistOne (formData) {
     let resultData = await userModel.getExistOne({
-      'email': formData.email,
-      'name': formData.userName
+      'wechat': formData.wechat
     })
     return resultData
   },
@@ -71,20 +70,30 @@ const user = {
       message: ''
     }
 
-    if (/[a-z0-9_-]{6,16}/.test(userInfo.userName) === false) {
-      result.message = userCode.ERROR_USER_NAME
+    // if (!/^[a-zA-Z]{1}[-_a-zA-Z0-9]{5,19}$/.test(userInfo.userName)) {
+    //   result.message = userCode.ERROR_USER_NAME
+    //   return result
+    // }
+    // if (!validator.isEmail(userInfo.email)) {
+    //   result.message = userCode.ERROR_EMAIL
+    //   return result
+    // }
+    // if (!/[a-zA-Z0-9]{6,16}/.test(userInfo.password)) {
+    //   result.message = userCode.ERROR_PASSWORD
+    //   return result
+    // }
+    // if (userInfo.password !== userInfo.confirmPassword) {
+    //   result.message = userCode.ERROR_PASSWORD_CONFORM
+    //   return result
+    // }
+
+    if (!/^[a-zA-Z]{1}[-_a-zA-Z0-9]{5,19}$/.test(userInfo.wechat)) {
+      result.message = userCode.ERROR_WECHAT
       return result
     }
-    if (!validator.isEmail(userInfo.email)) {
-      result.message = userCode.ERROR_EMAIL
-      return result
-    }
-    if (!/[\w+]{6,16}/.test(userInfo.password)) {
-      result.message = userCode.ERROR_PASSWORD
-      return result
-    }
-    if (userInfo.password !== userInfo.confirmPassword) {
-      result.message = userCode.ERROR_PASSWORD_CONFORM
+
+    if (!/^(MAIL|FEMAIL)$/.test(userInfo.gender)) {
+      result.message = userCode.ERROR_GENDER
       return result
     }
 

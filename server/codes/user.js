@@ -3,8 +3,13 @@
  */
 
 const userCode = {
+  SUCCESS: '操作成功',
 
   ERROR_USER_NAME: '用户名格式为6-16位的小写字母，包括-、_',
+
+  ERROR_WECHAT: '微信号格式错误',
+
+  ERROR_GENDER: '性别格式错误',
 
   ERROR_EMAIL: '请输入正确的邮箱地址',
 
@@ -17,6 +22,8 @@ const userCode = {
   FAIL_EMAIL_IS_EXIST: '邮箱已被注册',
 
   FAIL_USER_NAME_IS_EXIST: '用户名已被注册',
+
+  FAIL_WECHAT_IS_EXIST: '微信已被注册',
 
   FAIL_USER_NAME_OR_PASSWORD_ERROR: '用户名或登录密码错误',
 

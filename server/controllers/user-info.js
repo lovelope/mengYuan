@@ -1,5 +1,6 @@
 const userInfoService = require('./../services/user-info')
 const userCode = require('./../codes/user')
+const dateTime = require('./../utils/datetime')
 
 module.exports = {
 
@@ -49,15 +50,15 @@ module.exports = {
   async signUp (ctx) {
     let formData = ctx.request.body
     let result = {
-      success: false,
+      code: -1,
       message: '',
-      data: null
+      data: {}
     }
 
     let validateResult = userInfoService.validatorSignUp(formData)
 
     if (validateResult.success === false) {
-      result = validateResult
+      result.message = validateResult.message
       ctx.body = result
       return
     }
@@ -66,8 +67,8 @@ module.exports = {
     console.log(existOne)
 
     if (existOne) {
-      if (existOne.name === formData.userName) {
-        result.message = userCode.FAIL_USER_NAME_IS_EXIST
+      if (existOne.wechat === formData.wechat) {
+        result.message = userCode.FAIL_WECHAT_IS_EXIST
         ctx.body = result
         return
       }
@@ -79,17 +80,19 @@ module.exports = {
     }
 
     let userResult = await userInfoService.create({
-      email: formData.email,
-      password: formData.password,
-      name: formData.userName,
-      create_time: new Date().getTime(),
+      wechat: formData.wechat,
+      gender: formData.gender,
+      nature: formData.nature,
+      expect: formData.expect,
+      create_time: dateTime.getNowDatetime(),
       level: 2
     })
 
     console.log(userResult)
 
     if (userResult && userResult.insertId * 1 > 0) {
-      result.success = true
+      result.code = 0
+      result.message = userCode.SUCCESS
     } else {
       result.message = userCode.ERROR_SYS
     }
