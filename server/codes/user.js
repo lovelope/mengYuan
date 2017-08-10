@@ -17,6 +17,10 @@ const userCode = {
 
   ERROR_PASSWORD_CONFORM: '两次密码不一致',
 
+  ERROR_NATURE: '性格字符串不合法，含有非法字符',
+
+  ERROR_EXPECT: '期望性格字符串不合法，含有非法字符',
+
   ERROR_SYS: '系统错误',
 
   FAIL_EMAIL_IS_EXIST: '邮箱已被注册',

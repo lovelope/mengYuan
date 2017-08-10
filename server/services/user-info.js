@@ -97,6 +97,16 @@ const user = {
       return result
     }
 
+    if (!/^[a-zA-Z;\s\u4e00-\u9fa5]{0,80}$/gm.test(userInfo.nature)) {
+      result.message = userCode.ERROR_NATURE
+      return result
+    }
+
+    if (!/^[a-zA-Z;\s\u4e00-\u9fa5]{0,80}$/gm.test(userInfo.expect)) {
+      result.message = userCode.ERROR_EXPECT
+      return result
+    }
+
     result.success = true
 
     return result
