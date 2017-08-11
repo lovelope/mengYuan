@@ -20,7 +20,7 @@ const message = {
   /**
    * 获取n条消息
    * @param  {object} formData  查找的表单数据
-   * @return {object|null}      查找结果
+   * @return {array}      查找结果
    */
   async getMessages (formData) {
     let resultData = await messageModel.getMessages({
@@ -33,7 +33,7 @@ const message = {
   /**
    * 根据微信号查找消息
    * @param  {object} formData  查找的表单数据
-   * @return {object|null}      查找结果
+   * @return {array}      查找结果
    */
   async getMessageByWechat (formData) {
     let resultData = await messageModel.getMessageByWechat({
@@ -45,7 +45,7 @@ const message = {
   /**
    * 根据时间段查找消息
    * @param  {object} formData 查找的表单数据
-   * @return {object}          查找结果
+   * @return {array}          查找结果
    */
   async getMessageByTime (formData) {
     let resultData = await messageModel.getMessageByTime({
@@ -57,7 +57,7 @@ const message = {
   /**
    * 根据类型查找某人的消息
    * @param  {object} formData 查找的表单数据
-   * @return {object}          查找结果
+   * @return {array}          查找结果
    */
   async getMessageByWechatAndType (formData) {
     let resultData = await messageModel.getMessageByWechatAndType({
@@ -70,7 +70,7 @@ const message = {
   /**
    * 根据类型查找消息
    * @param  {object} formData 查找的表单数据
-   * @return {object}          查找结果
+   * @return {array}          查找结果
    */
   async getMessageByType (formData) {
     let resultData = await messageModel.getMessageByType({

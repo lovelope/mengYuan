@@ -2,9 +2,11 @@
 
 ## 接入页（无需登录的接口）
 
+### 请求方法：`POST`
+
 ### 接口地址
 
-`http://${config.apiServer.host}:${config.apiServer.port}/api/user/signup`
+`http://${config.apiServer.host}/api/user/signup`
 
 ### 入参
 
@@ -28,11 +30,11 @@
 
 ### 回参
 
-| 字段名      | 类型                    | 说明               | 示例                |
-| ----------- | ----------------------- | ------------------ | ------------------- |
-| code        | Number:Int              |   代码             | 0                   |
-| message     | String                  |   说明信息         | "操作成功"          |
-| data        | Object/Array            |   数据             |  {}                 |
+| 字段名  | 类型         | 说明     | 示例       |
+|---------|--------------|----------|------------|
+| code    | Number:Int   | 代码     | 0          |
+| message | String       | 说明信息 | "操作成功" |
+| data    | Object/Array | 数据     | {}         |
 
 ### 回参示例
 
@@ -46,9 +48,11 @@
 
 ## 添加发布信息（需要登录的接口）
 
+### 请求方法：`POST`
+
 ### 接口地址
 
-`http://${config.apiServer.host}:${config.apiServer.port}/api/message/add`
+`http://${config.apiServer.host}/api/message/add`
 
 ### 入参
 
@@ -74,11 +78,11 @@
 
 ### 回参
 
-| 字段名      | 类型                    | 说明               | 示例                |
-| ----------- | ----------------------- | ------------------ | ------------------- |
-| code        | Number:Int              |   代码             | 0                   |
-| message     | String                  |   说明信息         | "操作成功"          |
-| data        | Object/Array            |   数据             |  {}                 |
+| 字段名  | 类型         | 说明     | 示例       |
+|---------|--------------|----------|------------|
+| code    | Number:Int   | 代码     | 0          |
+| message | String       | 说明信息 | "操作成功" |
+| data    | Object/Array | 数据     | {}         |
 
 ### 回参示例
 
@@ -92,9 +96,11 @@
 
 ## 获取多条消息（无需登录的接口）
 
+### 请求方法：`POST`
+
 ### 接口地址
 
-`http://${config.apiServer.host}:${config.apiServer.port}/api/message/getMessages`
+`http://${config.apiServer.host}/api/message/getMessages`
 
 ### 入参
 
@@ -114,11 +120,11 @@
 
 ### 回参
 
-| 字段名      | 类型                    | 说明               | 示例                |
-| ----------- | ----------------------- | ------------------ | ------------------- |
-| code        | Number:Int              |   代码             | 0                   |
-| message     | String                  |   说明信息         | "操作成功"          |
-| data        | Array                   |   数据             |  []                 |
+| 字段名  | 类型       | 说明     | 示例       |
+|---------|------------|----------|------------|
+| code    | Number:Int | 代码     | 0          |
+| message | String     | 说明信息 | "操作成功" |
+| data    | Array      | 数据     | []         |
 
 ### 回参示例
 

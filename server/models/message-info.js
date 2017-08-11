@@ -18,7 +18,7 @@ const message = {
    * @return {[]}             查找结果
    */
   async getMessages (options) {
-    let startIndex = parseInt(options.pageIndex)*parseInt(options.pageSize)
+    let startIndex = parseInt(options.pageIndex) * parseInt(options.pageSize)
     let endIndex = parseInt(options.pageSize)
     let _sql = `
     SELECT wechat, publish_time, title, topic, type, content
@@ -26,6 +26,7 @@ const message = {
       LIMIT ${startIndex}, ${endIndex}`
     let result = await dbUtils.query(_sql)
     if (Array.isArray(result) && result.length > 0) {
+      result = result.reverse()
     } else {
       result = []
     }

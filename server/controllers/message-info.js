@@ -1,7 +1,8 @@
 const messageInfoService = require('./../services/message-info')
 const messageCode = require('./../codes/message')
 const userInfoController = require('./user-info') // 检验用户是否登录
-const dateTime = require('./../utils/datetime')
+const moment = require('moment')
+moment.locale('zh-CN')
 
 module.exports = {
 
@@ -40,7 +41,7 @@ module.exports = {
       title: formData.title || '',
       topic: formData.topic || '',
       content: formData.content,
-      publish_time: dateTime.getNowDatetime(),
+      publish_time: moment().format('YYYY-MM-DD HH:mm:ss'),
       level: 2
     })
 

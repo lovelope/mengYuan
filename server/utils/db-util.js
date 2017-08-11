@@ -6,7 +6,9 @@ const pool = mysql.createPool({
   host: config.HOST,
   user: config.USERNAME,
   password: config.PASSWORD,
-  database: config.DATABASE
+  database: config.DATABASE,
+  timezone: config.TIMEZONE,
+  dateStrings: config.DATE_STRINGS
 })
 
 let query = function (sql, values) {

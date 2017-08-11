@@ -1,6 +1,8 @@
 const userInfoService = require('./../services/user-info')
 const userCode = require('./../codes/user')
-const dateTime = require('./../utils/datetime')
+const moment = require('moment')
+
+moment.locale('zh-CN')
 
 module.exports = {
 
@@ -84,7 +86,7 @@ module.exports = {
       gender: formData.gender,
       nature: formData.nature,
       expect: formData.expect,
-      create_time: dateTime.getNowDatetime(),
+      create_time: moment().format('YYYY-MM-DD HH:mm:ss'),
       level: 2
     })
 
