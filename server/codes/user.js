@@ -5,6 +5,8 @@
 const userCode = {
   SUCCESS: '操作成功',
 
+  SUCCESS_WAS_LOGIN: '用户已登录',
+
   ERROR_USER_NAME: '用户名格式为6-16位的小写字母，包括-、_',
 
   ERROR_WECHAT: '微信号格式错误',

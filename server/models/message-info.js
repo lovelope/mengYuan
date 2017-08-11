@@ -13,6 +13,26 @@ const message = {
   },
 
   /**
+   * 查找n条消息
+   * @param  {obejct} options 查找条件参数
+   * @return {[]}             查找结果
+   */
+  async getMessages (options) {
+    let startIndex = parseInt(options.pageIndex)*parseInt(options.pageSize)
+    let endIndex = parseInt(options.pageSize)
+    let _sql = `
+    SELECT wechat, publish_time, title, topic, type, content
+      FROM message
+      LIMIT ${startIndex}, ${endIndex}`
+    let result = await dbUtils.query(_sql)
+    if (Array.isArray(result) && result.length > 0) {
+    } else {
+      result = []
+    }
+    return result
+  },
+
+  /**
    * 根据微信号查找消息
    * @param  {obejct} options 查找条件参数
    * @return {[]}             查找结果
@@ -45,6 +65,23 @@ const message = {
       result = result[0]
     } else {
       result = null
+    }
+    return result
+  },
+
+  /**
+   * 根据消息类型查找消息
+   * @param  {object} options 消息类型对象
+   * @return {[]}         查找结果
+   */
+  async getMessageByWechatAndType (options) {
+    let _sql = `
+    SELECT * FROM message
+      WHERE wechat="${options.wechat}" AND type="${options.type}"`
+    let result = await dbUtils.query(_sql)
+    if (Array.isArray(result) && result.length > 0) {
+    } else {
+      result = []
     }
     return result
   },

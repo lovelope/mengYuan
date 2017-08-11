@@ -1,35 +1,15 @@
 const messageInfoService = require('./../services/message-info')
 const messageCode = require('./../codes/message')
-const userCode = require('./../codes/user')
+const userInfoController = require('./user-info') // 检验用户是否登录
 const dateTime = require('./../utils/datetime')
 
 module.exports = {
 
   /**
-   * 校验用户是否登录
-   * @param  {obejct} ctx 上下文对象
-   */
-  validateLogin (ctx) {
-    let result = {
-      success: false,
-      message: userCode.FAIL_USER_NO_LOGIN,
-      data: null,
-      code: 'FAIL_USER_NO_LOGIN'
-    }
-    let session = ctx.session
-    if (session && session.isLogin === true) {
-      result.success = true
-      result.message = ''
-      result.code = ''
-    }
-    return result
-  },
-
-  /**
    * 添加消息操作
    * @param   {obejct} ctx 上下文对象
    */
-  async _add (ctx) {
+  async add (ctx) {
     let formData = ctx.request.body
     let result = {
       code: -1,
@@ -37,14 +17,23 @@ module.exports = {
       data: {}
     }
 
-    let validateResult = messageInfoService.validatorCreateMessage(formData)
+    // 检验是否登录
+    let validateLoginResult = userInfoController.validateLogin(formData)
+    if (validateLoginResult.code === -1) {
+      result.message = validateLoginResult.message
+      ctx.body = result
+      return
+    }
 
+    // 校验数据合法性
+    let validateResult = messageInfoService.validatorCreateMessage(formData)
     if (validateResult.success === false) {
       result.message = validateResult.message
       ctx.body = result
       return
     }
 
+    // 添加数据到数据库
     let messageResult = await messageInfoService.create({
       wechat: formData.wechat,
       type: formData.type,
@@ -67,29 +56,185 @@ module.exports = {
     ctx.body = result
   },
 
-  /**
-   * 获取用户信息
-   * @param    {obejct} ctx 上下文对象
+    /**
+   * 获取某用户消息操作
+   * @param   {obejct} ctx 上下文对象
    */
-  async add (ctx) {
-    let session = ctx.session
-    let isLogin = session.isLogin
-    let userName = session.userName
-
-    console.log('session=', session)
-
+  async getMessageByWechat (ctx) {
+    let formData = ctx.request.body
     let result = {
       code: -1,
       message: '',
       data: {}
     }
-    if (isLogin === true && userName) {
-      result = await this._add(ctx)
+
+    // 检验是否登录
+    let validateLoginResult = userInfoController.validateLogin(formData)
+    if (validateLoginResult.code === -1) {
+      result.message = validateLoginResult.message
+      ctx.body = result
+      return
+    }
+
+    // 从数据库取消息
+    let messageResult = await messageInfoService.getMessageByWechat({
+      wechat: formData.wechat
+    })
+
+    console.log(messageResult)
+
+    if (messageResult && messageResult.insertId * 1 > 0) {
+      result.code = 0
+      result.message = messageCode.SUCCESS
     } else {
-      result.message = userCode.FAIL_USER_NO_LOGIN
+      result.message = messageCode.ERROR_SYS
+    }
+
+    ctx.body = result
+  },
+
+  /**
+   * 获取某类消息操作
+   * @param   {obejct} ctx 上下文对象
+   */
+  async getMessageByType (ctx) {
+    let formData = ctx.request.body
+    let result = {
+      code: -1,
+      message: '',
+      data: {}
+    }
+
+    // 检验是否登录
+    let validateLoginResult = userInfoController.validateLogin(formData)
+    if (validateLoginResult.code === -1) {
+      result.message = validateLoginResult.message
+      ctx.body = result
+      return
+    }
+
+    // 从数据库取消息
+    let messageResult = await messageInfoService.getMessageByType({
+      type: formData.type
+    })
+
+    console.log(messageResult)
+
+    if (messageResult && messageResult.insertId * 1 > 0) {
+      result.code = 0
+      result.message = messageCode.SUCCESS
+    } else {
+      result.message = messageCode.ERROR_SYS
+    }
+
+    ctx.body = result
+  },
+
+  /**
+   * 获取某用户的某类消息操作
+   * @param   {obejct} ctx 上下文对象
+   */
+  async getMessageByWechatAndType (ctx) {
+    let formData = ctx.request.body
+    let result = {
+      code: -1,
+      message: '',
+      data: {}
+    }
+
+    // 检验是否登录
+    let validateLoginResult = userInfoController.validateLogin(formData)
+    if (validateLoginResult.code === -1) {
+      result.message = validateLoginResult.message
+      ctx.body = result
+      return
+    }
+
+    // 从数据库取消息
+    let messageResult = await messageInfoService.getMessageByWechatAndType({
+      wechat: formData.wechat,
+      type: formData.type
+    })
+
+    console.log(messageResult)
+
+    if (messageResult && messageResult.insertId * 1 > 0) {
+      result.code = 0
+      result.message = messageCode.SUCCESS
+    } else {
+      result.message = messageCode.ERROR_SYS
+    }
+
+    ctx.body = result
+  },
+
+    /**
+   * 获取时间段内消息操作
+   * @param   {obejct} ctx 上下文对象
+   */
+  async getMessageByTime (ctx) {
+    let formData = ctx.request.body
+    let result = {
+      code: -1,
+      message: '',
+      data: {}
+    }
+
+    // 检验是否登录
+    let validateLoginResult = userInfoController.validateLogin(formData)
+    if (validateLoginResult.code === -1) {
+      result.message = validateLoginResult.message
+      ctx.body = result
+      return
+    }
+
+    // 从数据库取消息
+    let messageResult = await messageInfoService.getMessageByTime({
+      wechat: formData.wechat,
+      type: formData.type
+    })
+
+    console.log(messageResult)
+
+    if (messageResult && messageResult.insertId * 1 > 0) {
+      result.code = 0
+      result.message = messageCode.SUCCESS
+    } else {
+      result.message = messageCode.ERROR_SYS
+    }
+
+    ctx.body = result
+  },
+
+    /**
+   * 获取所有消息操作
+   * @param   {obejct} ctx 上下文对象
+   */
+  async getMessages (ctx) {
+    let formData = ctx.request.body
+    let result = {
+      code: -1,
+      message: '',
+      data: null
+    }
+
+    // 从数据库取消息
+    let messageResult = await messageInfoService.getMessages({
+      pageIndex: formData.pageIndex,
+      pageSize: formData.pageSize
+    })
+
+    result.data = messageResult
+
+    console.log(messageResult)
+
+    if (messageResult && messageResult.length * 1 > 0) {
+      result.code = 0
+      result.message = messageCode.SUCCESS
+    } else {
+      result.message = messageCode.ERROR_SYS
     }
 
     ctx.body = result
   }
-
 }

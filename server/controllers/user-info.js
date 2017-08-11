@@ -137,16 +137,14 @@ module.exports = {
    */
   validateLogin (ctx) {
     let result = {
-      success: false,
+      code: -1,
       message: userCode.FAIL_USER_NO_LOGIN,
-      data: null,
-      code: 'FAIL_USER_NO_LOGIN'
+      data: null
     }
     let session = ctx.session
     if (session && session.isLogin === true) {
-      result.success = true
-      result.message = ''
-      result.code = ''
+      result.code = 0
+      result.message = userCode.SUCCESS_WAS_LOGIN
     }
     return result
   }

@@ -11,5 +11,13 @@ const routers = router
   .post('/user/signIn.json', userInfoController.signIn)
   .post('/user/signup', userInfoController.signUp)
   .post('/message/add', messageInfoController.add)
+  .post('/message/getMessages', messageInfoController.getMessages)
+/*   .post('*', () => {
+    return {
+      code: -2,
+      message: '未知接口',
+      data: {}
+    }
+  }) */
 
 module.exports = routers

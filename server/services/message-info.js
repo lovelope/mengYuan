@@ -18,6 +18,19 @@ const message = {
   },
 
   /**
+   * 获取n条消息
+   * @param  {object} formData  查找的表单数据
+   * @return {object|null}      查找结果
+   */
+  async getMessages (formData) {
+    let resultData = await messageModel.getMessages({
+      'pageIndex': formData.pageIndex,
+      'pageSize': formData.pageSize
+    })
+    return resultData
+  },
+
+  /**
    * 根据微信号查找消息
    * @param  {object} formData  查找的表单数据
    * @return {object|null}      查找结果
@@ -31,8 +44,8 @@ const message = {
 
   /**
    * 根据时间段查找消息
-   * @param  {object} formData 登录表单信息
-   * @return {object}          登录业务操作结果
+   * @param  {object} formData 查找的表单数据
+   * @return {object}          查找结果
    */
   async getMessageByTime (formData) {
     let resultData = await messageModel.getMessageByTime({
@@ -42,13 +55,27 @@ const message = {
   },
 
   /**
+   * 根据类型查找某人的消息
+   * @param  {object} formData 查找的表单数据
+   * @return {object}          查找结果
+   */
+  async getMessageByWechatAndType (formData) {
+    let resultData = await messageModel.getMessageByWechatAndType({
+      'wechat': formData.wechat,
+      'type': formData.type
+    })
+    return resultData
+  },
+
+  /**
    * 根据类型查找消息
-   * @param  {object} formData 登录表单信息
-   * @return {object}          登录业务操作结果
+   * @param  {object} formData 查找的表单数据
+   * @return {object}          查找结果
    */
   async getMessageByType (formData) {
-    let resultData = await messageModel.getMessageByTime({
-      'type': formData.type})
+    let resultData = await messageModel.getMessageByType({
+      'type': formData.type
+    })
     return resultData
   },
 
