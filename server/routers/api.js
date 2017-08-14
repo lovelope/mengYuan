@@ -11,6 +11,10 @@ const routers = router
   .post('/user/signup', userInfoController.signUp)
   .post('/message/add', messageInfoController.add)
   .post('/message/getMessages', messageInfoController.getMessages)
+  .post('/message/getMessageByWechat', messageInfoController.getMessageByWechat)
+  .post('/message/getMessageByWechatAndType', messageInfoController.getMessageByWechatAndType)
+  .post('/message/getMessageByType', messageInfoController.getMessageByType)
+  .post('/message/getMessageByTime', messageInfoController.getMessageByTime)
   .post('/message/upload', messageInfoController.upload)
 
 module.exports = routers

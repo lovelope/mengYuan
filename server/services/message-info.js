@@ -24,8 +24,8 @@ const message = {
    */
   async getMessages (formData) {
     let resultData = await messageModel.getMessages({
-      'pageIndex': formData.pageIndex,
-      'pageSize': formData.pageSize
+      'pageIndex': formData.pageIndex || 0,
+      'pageSize': formData.pageSize || 10
     })
     return resultData
   },
@@ -37,7 +37,9 @@ const message = {
    */
   async getMessageByWechat (formData) {
     let resultData = await messageModel.getMessageByWechat({
-      'wechat': formData.wechat
+      'wechat': formData.wechat,
+      'pageIndex': formData.pageIndex || 0,
+      'pageSize': formData.pageSize || 10
     })
     return resultData
   },
@@ -50,7 +52,10 @@ const message = {
   async getMessageByTime (formData) {
     let resultData = await messageModel.getMessageByTime({
       'start_time': formData.start_time,
-      'end_time': formData.end_time})
+      'end_time': formData.end_time,
+      'pageIndex': formData.pageIndex || 0,
+      'pageSize': formData.pageSize || 10
+    })
     return resultData
   },
 
@@ -62,7 +67,9 @@ const message = {
   async getMessageByWechatAndType (formData) {
     let resultData = await messageModel.getMessageByWechatAndType({
       'wechat': formData.wechat,
-      'type': formData.type
+      'type': formData.type,
+      'pageIndex': formData.pageIndex || 0,
+      'pageSize': formData.pageSize || 10
     })
     return resultData
   },
@@ -74,7 +81,9 @@ const message = {
    */
   async getMessageByType (formData) {
     let resultData = await messageModel.getMessageByType({
-      'type': formData.type
+      'type': formData.type,
+      'pageIndex': formData.pageIndex || 0,
+      'pageSize': formData.pageSize || 10
     })
     return resultData
   },

@@ -18,6 +18,7 @@ let query = function (sql, values) {
         resolve(err)
       } else {
         connection.query(sql, values, (err, rows) => {
+          console.log(`\n>--- sql: ${sql} ---><\n`)
           if (err) {
             reject(err)
           } else {
@@ -39,9 +40,9 @@ let findDataById = function (table, id) {
   return query(_sql, [ table, id ])
 }
 
-let findDataByPage = function (table, keys, start, end) {
+let findDataByPage = function (table, keys, start, length) {
   let _sql = 'SELECT ?? FROM ??  LIMIT ? , ?'
-  return query(_sql, [ keys, table, start, end ])
+  return query(_sql, [ keys, table, start, length ])
 }
 
 let insertData = function (table, values) {

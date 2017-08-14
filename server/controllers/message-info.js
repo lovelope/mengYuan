@@ -124,13 +124,13 @@ module.exports = {
       data: {}
     }
 
-    // 检验是否登录
-    let validateLoginResult = userInfoController.validateLogin(formData)
-    if (validateLoginResult.code === -1) {
-      result.message = validateLoginResult.message
-      ctx.body = result
-      return
-    }
+    // // 检验是否登录
+    // let validateLoginResult = userInfoController.validateLogin(formData)
+    // if (validateLoginResult.code === -1) {
+    //   result.message = validateLoginResult.message
+    //   ctx.body = result
+    //   return
+    // }
 
     // 从数据库取消息
     let messageResult = await messageInfoService.getMessageByWechat({
@@ -139,9 +139,10 @@ module.exports = {
 
     console.log(messageResult)
 
-    if (messageResult && messageResult.insertId * 1 > 0) {
+    if (messageResult && messageResult.length * 1 > 0) {
       result.code = 0
       result.message = messageCode.SUCCESS
+      result.data = messageResult
     } else {
       result.message = messageCode.ERROR_SYS
     }
@@ -161,13 +162,13 @@ module.exports = {
       data: {}
     }
 
-    // 检验是否登录
-    let validateLoginResult = userInfoController.validateLogin(formData)
-    if (validateLoginResult.code === -1) {
-      result.message = validateLoginResult.message
-      ctx.body = result
-      return
-    }
+    // // 检验是否登录
+    // let validateLoginResult = userInfoController.validateLogin(formData)
+    // if (validateLoginResult.code === -1) {
+    //   result.message = validateLoginResult.message
+    //   ctx.body = result
+    //   return
+    // }
 
     // 从数据库取消息
     let messageResult = await messageInfoService.getMessageByType({
@@ -176,9 +177,10 @@ module.exports = {
 
     console.log(messageResult)
 
-    if (messageResult && messageResult.insertId * 1 > 0) {
+    if (messageResult && messageResult.length * 1 > 0) {
       result.code = 0
       result.message = messageCode.SUCCESS
+      result.data = messageResult
     } else {
       result.message = messageCode.ERROR_SYS
     }
@@ -198,25 +200,28 @@ module.exports = {
       data: {}
     }
 
-    // 检验是否登录
-    let validateLoginResult = userInfoController.validateLogin(formData)
-    if (validateLoginResult.code === -1) {
-      result.message = validateLoginResult.message
-      ctx.body = result
-      return
-    }
+    // // 检验是否登录
+    // let validateLoginResult = userInfoController.validateLogin(formData)
+    // if (validateLoginResult.code === -1) {
+    //   result.message = validateLoginResult.message
+    //   ctx.body = result
+    //   return
+    // }
 
     // 从数据库取消息
     let messageResult = await messageInfoService.getMessageByWechatAndType({
       wechat: formData.wechat,
-      type: formData.type
+      type: formData.type,
+      pageIndex: formData.pageIndex,
+      pageSize: formData.pageSize
     })
 
     console.log(messageResult)
 
-    if (messageResult && messageResult.insertId * 1 > 0) {
+    if (messageResult && messageResult.length * 1 > 0) {
       result.code = 0
       result.message = messageCode.SUCCESS
+      result.data = messageResult
     } else {
       result.message = messageCode.ERROR_SYS
     }
@@ -236,25 +241,28 @@ module.exports = {
       data: {}
     }
 
-    // 检验是否登录
-    let validateLoginResult = userInfoController.validateLogin(formData)
-    if (validateLoginResult.code === -1) {
-      result.message = validateLoginResult.message
-      ctx.body = result
-      return
-    }
+    // // 检验是否登录
+    // let validateLoginResult = userInfoController.validateLogin(formData)
+    // if (validateLoginResult.code === -1) {
+    //   result.message = validateLoginResult.message
+    //   ctx.body = result
+    //   return
+    // }
 
     // 从数据库取消息
     let messageResult = await messageInfoService.getMessageByTime({
-      wechat: formData.wechat,
-      type: formData.type
+      start_time: formData.start_time,
+      end_time: formData.end_time,
+      pageIndex: formData.pageIndex,
+      pageSize: formData.pageSize
     })
 
     console.log(messageResult)
 
-    if (messageResult && messageResult.insertId * 1 > 0) {
+    if (messageResult && messageResult.length * 1 > 0) {
       result.code = 0
       result.message = messageCode.SUCCESS
+      result.data = messageResult
     } else {
       result.message = messageCode.ERROR_SYS
     }
@@ -280,13 +288,12 @@ module.exports = {
       pageSize: formData.pageSize
     })
 
-    result.data = messageResult
-
     console.log(messageResult)
 
     if (messageResult && messageResult.length * 1 > 0) {
       result.code = 0
       result.message = messageCode.SUCCESS
+      result.data = messageResult
     } else {
       result.message = messageCode.ERROR_SYS
     }

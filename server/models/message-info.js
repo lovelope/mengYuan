@@ -1,7 +1,4 @@
 const dbUtils = require('./../utils/db-util')
-const os = require('os')
-const fs = require('fs')
-const path = require('path')
 
 const message = {
 
@@ -16,26 +13,11 @@ const message = {
   },
 
   /**
-   * 数据库创建消息
-   * @param  {object} model 消息数据模型
-   * @return {object}       mysql执行结果
-   */
-  async createFile (model) {
-    const file = model.files.file
-    const reader = fs.createReadStream(file.path)
-    const stream = fs.createWriteStream(path.join(os.tmpdir(), Math.random().toString()))
-    reader.pipe(stream)
-    console.log('uploading %s -> %s', file.name, stream.path)
-    let result = await dbUtils.insertData('message', model)
-    return result
-  },
-
-  /**
    * 获取消息计数
    * @param  {obejct} options 查找条件参数
    * @return {[]}             查找结果
    */
-  async getCount (options) {
+  async getMsgCount (options) {
     let _sql = `
     SELECT COUNT(*)
       FROM message`
@@ -54,22 +36,15 @@ const message = {
    * @return {[]}             查找结果
    */
   async getMessages (options) {
-    let count = await this.getCount()
     let pageIndex = parseInt(options.pageIndex)
     let pageSize = parseInt(options.pageSize)
-    let startIndex = count - (pageIndex + 1) * pageSize // 数据库开始索引
-    startIndex = startIndex < 0 ? 0 : startIndex        // 小于0则置0
-    let endIndex = count - pageIndex * pageSize         // 数据库结束索引
+
     let _sql = `
     SELECT wechat, publish_time, title, topic, type, content
       FROM message
-      LIMIT ${startIndex}, ${endIndex}`
+      ORDER BY publish_time DESC
+      LIMIT ${pageIndex * pageSize}, ${pageSize}`
     let result = await dbUtils.query(_sql)
-    if (Array.isArray(result) && result.length > 0) {
-      result = result.reverse()
-    } else {
-      result = []
-    }
     return result
   },
 
@@ -79,21 +54,17 @@ const message = {
    * @return {[]}             查找结果
    */
   async getMessageByWechat (options) {
-    let count = await this.getCount()
     let pageIndex = parseInt(options.pageIndex)
     let pageSize = parseInt(options.pageSize)
-    let startIndex = count - (pageIndex + 1) * pageSize // 数据库开始索引
-    startIndex = startIndex < 0 ? 0 : startIndex        // 小于0则置0
-    let endIndex = count - pageIndex * pageSize         // 数据库结束索引
+
     let _sql = `
-    SELECT * FROM message
+    SELECT wechat, publish_time, title, topic, type, content
+      FROM message
       WHERE wechat="${options.wechat}"
-      LIMIT ${startIndex}, ${endIndex}`
+      ORDER BY publish_time DESC
+      LIMIT ${pageIndex * pageSize}, ${pageSize}`
     let result = await dbUtils.query(_sql)
-    if (Array.isArray(result) && result.length > 0) {
-    } else {
-      result = []
-    }
+
     return result
   },
 
@@ -104,15 +75,12 @@ const message = {
    */
   async getMessageByMid (options) {
     let _sql = `
-    SELECT * FROM message
+    SELECT wechat, publish_time, title, topic, type, content
+      FROM message
       WHERE mid="${options.mid}"
       LIMIT 1`
     let result = await dbUtils.query(_sql)
-    if (Array.isArray(result) && result.length > 0) {
-      result = result[0]
-    } else {
-      result = null
-    }
+
     return result
   },
 
@@ -122,21 +90,17 @@ const message = {
    * @return {[]}         查找结果
    */
   async getMessageByWechatAndType (options) {
-    let count = await this.getCount()
     let pageIndex = parseInt(options.pageIndex)
     let pageSize = parseInt(options.pageSize)
-    let startIndex = count - (pageIndex + 1) * pageSize // 数据库开始索引
-    startIndex = startIndex < 0 ? 0 : startIndex        // 小于0则置0
-    let endIndex = count - pageIndex * pageSize         // 数据库结束索引
+
     let _sql = `
-    SELECT * FROM message
+    SELECT wechat, publish_time, title, topic, type, content
+      FROM message
       WHERE wechat="${options.wechat}" AND type="${options.type}"
-      LIMIT ${startIndex}, ${endIndex}`
+      ORDER BY publish_time DESC
+      LIMIT ${pageIndex * pageSize}, ${pageSize}`
     let result = await dbUtils.query(_sql)
-    if (Array.isArray(result) && result.length > 0) {
-    } else {
-      result = []
-    }
+
     return result
   },
 
@@ -146,14 +110,17 @@ const message = {
    * @return {[]}         查找结果
    */
   async getMessageByType (options) {
+    let pageIndex = parseInt(options.pageIndex)
+    let pageSize = parseInt(options.pageSize)
+
     let _sql = `
-    SELECT * FROM message
-      WHERE type="${options.type}"`
+    SELECT wechat, publish_time, title, topic, type, content
+      FROM message
+      WHERE type="${options.type}"
+      ORDER BY publish_time DESC
+      LIMIT ${pageIndex * pageSize}, ${pageSize}`
     let result = await dbUtils.query(_sql)
-    if (Array.isArray(result) && result.length > 0) {
-    } else {
-      result = []
-    }
+
     return result
   },
 
@@ -163,14 +130,17 @@ const message = {
    * @return {[]}         查找结果
    */
   async getMessageByTime (options) {
+    let pageIndex = parseInt(options.pageIndex)
+    let pageSize = parseInt(options.pageSize)
+
     let _sql = `
-    SELECT * FROM message
-      WHERE publish_time  BETWEEN "${options.start_time}" AND "${options.end_time}"`
+    SELECT wechat, publish_time, title, topic, type, content
+      FROM message
+      WHERE publish_time  BETWEEN "${options.start_time}" AND "${options.end_time}"
+      ORDER BY publish_time DESC
+      LIMIT ${pageIndex * pageSize}, ${pageSize}`
     let result = await dbUtils.query(_sql)
-    if (Array.isArray(result) && result.length > 0) {
-    } else {
-      result = []
-    }
+
     return result
   }
 
