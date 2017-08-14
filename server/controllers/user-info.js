@@ -13,30 +13,27 @@ module.exports = {
   async signIn (ctx) {
     let formData = ctx.request.body
     let result = {
-      success: false,
+      code: -1,
       message: '',
-      data: null,
-      code: ''
+      data: null
     }
 
     let userResult = await userInfoService.signIn(formData)
 
     if (userResult) {
-      if (formData.userName === userResult.name) {
-        result.success = true
+      if (formData.wechat === userResult.wechat) {
+        result.code = 0
       } else {
         result.message = userCode.FAIL_USER_NAME_OR_PASSWORD_ERROR
-        result.code = 'FAIL_USER_NAME_OR_PASSWORD_ERROR'
       }
     } else {
-      result.code = 'FAIL_USER_NO_EXIST'
       result.message = userCode.FAIL_USER_NO_EXIST
     }
 
-    if (formData.source === 'form' && result.success === true) {
+    if (formData.source === 'form' && result.code === 0) {
       let session = ctx.session
       session.isLogin = true
-      session.userName = userResult.name
+      session.wechat = userResult.wechat
       session.userId = userResult.id
 
       ctx.redirect('/work')

@@ -43,10 +43,10 @@ const SignInForm = Form.create()(React.createClass({
       <div style={{ width: '280px', margin: '0 auto' }}>
         <Form onSubmit={this.handleSubmit} className='login-form'>
           <FormItem>
-            {getFieldDecorator('userName', {
-              rules: [{ required: true, message: '请您输入账号名称！' }]
+            {getFieldDecorator('wechat', {
+              rules: [{ required: true, message: '请您输入微信账号！' }]
             })(
-              <Input addonBefore={<Icon type='user' />} placeholder='请您输入用户名称！' />
+              <Input addonBefore={<Icon type='user' />} placeholder='请您输入微信账号！' />
             )}
           </FormItem>
           <FormItem>

@@ -1,9 +1,16 @@
 const path = require('path')
 const fs = require('fs')
 const Busboy = require('busboy')
-const UtilType = require('./type')
-const UtilDatetime = require('./datetime')
+const inspect = require('util').inspect
+const moment = require('moment')
 
+moment.locale('zh-CN')
+
+/**
+ * 同步创建文件目录
+ * @param  {string} dirname 目录绝对地址
+ * @return {boolean}        创建目录结果
+ */
 function mkdirsSync (dirname) {
   // console.log(dirname)
   if (fs.existsSync(dirname)) {
@@ -12,73 +19,83 @@ function mkdirsSync (dirname) {
     if (mkdirsSync(path.dirname(dirname))) {
       fs.mkdirSync(dirname)
       return true
-    } else {
-      return false
     }
   }
 }
 
+/**
+ * 获取上传文件的后缀名
+ * @param  {string} fileName 获取上传文件的后缀名
+ * @return {string}          文件后缀名
+ */
 function getSuffixName (fileName) {
   let nameList = fileName.split('.')
   return nameList[nameList.length - 1]
 }
 
-function uploadPicture (ctx, options) {
+/**
+ * 上传文件
+ * @param  {object} ctx     koa上下文
+ * @param  {object} options 文件上传参数 fileType文件类型， path文件存放路径
+ * @return {promise}
+ */
+function uploadFile (ctx, options) {
   let req = ctx.req
+  // let res = ctx.res
   let busboy = new Busboy({headers: req.headers})
 
-  let pictureType = 'common'
-  if (UtilType.isJSON(options) && UtilType.isString(options.pictureType)) {
-    pictureType = options.pictureType
-  }
-
-  let picturePath = path.join(
-    __dirname,
-    '/../../static/output/upload/',
-    pictureType,
-    UtilDatetime.parseStampToFormat(null, 'YYYY/MM/DD'))
-
-  console.log(path.sep, picturePath)
-  mkdirsSync(picturePath)
+  // 获取类型
+  let fileType = options.fileType || 'common'
+  let filePath = path.join(options.path, fileType)
+  mkdirsSync(filePath)
 
   return new Promise((resolve, reject) => {
+    console.log('文件上传中...')
     let result = {
-      success: false,
-      code: '',
+      code: -1,
       message: '',
-      data: null
+      data: {}
     }
 
+    // 解析请求文件事件
     busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
-      console.log('File-file [' + fieldname + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype)
-
-      let pictureName = Math.random().toString(16).substr(2) + '.' + getSuffixName(filename)
-      let _uploadFilePath = path.join(picturePath, pictureName)
-      console.log(_uploadFilePath)
-
+      let fileName = Math.random().toString(16).substr(2) + '.' + getSuffixName(filename)
+      let _uploadFilePath = path.join(filePath, fileName)
       let saveTo = path.join(_uploadFilePath)
+
+      // 文件保存到制定路径
       file.pipe(fs.createWriteStream(saveTo))
 
-      // file.on('data', function(data) {
-      //   console.log('File-data [' + fieldname + '] got ' + data.length + ' bytes')
-      // })
-
+      // 文件写入事件结束
       file.on('end', function () {
-        console.log('File-end [' + fieldname + '] Finished')
-        result.success = true
+        result.code = 0
+        result.message = '文件上传成功'
+        result.data = {
+          content: `${mimetype};${encoding};${saveTo}`
+        }
+
+        console.log('文件上传成功！')
         resolve(result)
       })
     })
 
-    // busboy.on('field', function(fieldname, val, fieldnameTruncated, valTruncated, encoding, mimetype) {
-    //   console.log('Field-field [' + fieldname + ']: value: ' + inspect(val))
-    // })
-    // busboy.on('finish', function() {
-    //   console.log('Done parsing form!')
-    // })
+    // 解析表单中其他字段信息
+    busboy.on('field', function (fieldname, val, fieldnameTruncated, valTruncated, encoding, mimetype) {
+      console.log('表单字段数据 [' + fieldname + ']: value: ' + inspect(val))
+      result.data[fieldname] = inspect(val)
+    })
 
+    // 解析结束事件
+    busboy.on('finish', function () {
+      console.log('文件上传结束')
+      resolve(result)
+    })
+
+    // 解析错误事件
     busboy.on('error', function (err) {
-      console.log('File-error', err)
+      console.log('文件上传出错')
+      console.error('Error upload:' + err)
+      result.message = '文件上传出错'
       reject(result)
     })
 
@@ -87,5 +104,5 @@ function uploadPicture (ctx, options) {
 }
 
 module.exports = {
-  uploadPicture
+  uploadFile
 }

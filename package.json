@@ -21,6 +21,7 @@
     "co": "^4.6.0",
     "debug": "^2.6.8",
     "ejs": "^2.5.7",
+    "get-video-duration": "^0.2.0",
     "koa": "^2.3.0",
     "koa-bodyparser": "^4.2.0",
     "koa-logger": "^3.0.1",

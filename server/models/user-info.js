@@ -36,10 +36,10 @@ const user = {
    * @param  {object} options 用户名密码对象
    * @return {object|null}         查找结果
    */
-  async getOneByUserNameAndPassword (options) {
+  async getOneByWechatAndPassword (options) {
     let _sql = `
     SELECT * from user
-      where password="${options.password}" and name="${options.name}"
+      where password="${options.password}" and wechat="${options.wechat}"
       limit 1`
     let result = await dbUtils.query(_sql)
     if (Array.isArray(result) && result.length > 0) {

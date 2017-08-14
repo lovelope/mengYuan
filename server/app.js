@@ -42,6 +42,12 @@ app.use(views(path.join(__dirname, './views'), {
   extension: 'ejs'
 }))
 
+// 打印请求体
+app.use(async (ctx, next) => {
+  console.log(`Request Body: ${JSON.stringify(ctx.request.body)}`)
+  await next()
+})
+
 // 初始化路由中间件
 app.use(routers.routes()).use(routers.allowedMethods())
 

@@ -1,6 +1,7 @@
 const messageInfoService = require('./../services/message-info')
 const messageCode = require('./../codes/message')
 const userInfoController = require('./user-info') // 检验用户是否登录
+const uploadUtil = require('./../util/upload')
 const moment = require('moment')
 moment.locale('zh-CN')
 
@@ -41,8 +42,7 @@ module.exports = {
       title: formData.title || '',
       topic: formData.topic || '',
       content: formData.content,
-      publish_time: moment().format('YYYY-MM-DD HH:mm:ss'),
-      level: 2
+      publish_time: moment().format('YYYY-MM-DD HH:mm:ss')
     })
 
     console.log(messageResult)
@@ -55,6 +55,61 @@ module.exports = {
     }
 
     ctx.body = result
+  },
+
+  /**
+   * 上传文件操作
+   * @param   {obejct} ctx 上下文对象
+   */
+  async upload (ctx) {
+    let formData = ctx.request.body
+    let result = {
+      code: -1,
+      message: '',
+      data: {}
+    }
+
+    // 检验是否登录
+    let validateLoginResult = userInfoController.validateLogin(formData)
+    if (validateLoginResult.code === -1) {
+      result.message = validateLoginResult.message
+      ctx.body = result
+      return
+    }
+
+    // // 校验数据合法性
+    // let validateResult = messageInfoService.validatorUpload(formData)
+    // if (validateResult.success === false) {
+    //   result.message = validateResult.message
+    //   ctx.body = result
+    //   return
+    // }
+
+    let uploadResult = await uploadUtil.upload(ctx)
+    // 添加数据到数据库
+    if (uploadResult.code === 0) {
+      let messageResult = await messageInfoService.create({
+        wechat: formData.wechat,
+        type: formData.type,
+        title: formData.title || '',
+        topic: formData.topic || '',
+        content: uploadResult.data.content,
+        publish_time: moment().format('YYYY-MM-DD HH:mm:ss')
+      })
+
+      console.log(messageResult)
+
+      if (messageResult && messageResult.insertId * 1 > 0) {
+        result.code = 0
+        result.message = messageCode.SUCCESS
+      } else {
+        result.message = messageCode.ERROR_SYS
+      }
+
+      ctx.body = result
+    } else {
+      ctx.body = uploadResult
+    }
   },
 
     /**
