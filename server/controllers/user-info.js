@@ -71,18 +71,13 @@ module.exports = {
         ctx.body = result
         return
       }
-      if (existOne.email === formData.email) {
-        result.message = userCode.FAIL_EMAIL_IS_EXIST
-        ctx.body = result
-        return
-      }
     }
 
     let userResult = await userInfoService.create({
       wechat: formData.wechat,
-      gender: formData.gender,
-      nature: formData.nature,
-      expect: formData.expect,
+      gender: formData.gender || 'FEMAIL',
+      nature: formData.nature || '',
+      expect: formData.expect || '',
       create_time: moment().format('YYYY-MM-DD HH:mm:ss'),
       level: 2
     })

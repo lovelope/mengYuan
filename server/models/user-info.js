@@ -20,7 +20,7 @@ const user = {
   async getExistOne (options) {
     let _sql = `
     SELECT * from user
-      where email="${options.email}" or wechat="${options.wechat}"
+      where wechat="${options.wechat}"
       limit 1`
     let result = await dbUtils.query(_sql)
     if (Array.isArray(result) && result.length > 0) {

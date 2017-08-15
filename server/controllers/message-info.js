@@ -41,11 +41,12 @@ module.exports = {
     // 添加数据到数据库
     let messageResult = await messageInfoService.create({
       wechat: formData.wechat,
-      type: formData.type,
+      type: formData.type || 'String',
       title: formData.title || '',
       topic: formData.topic || '',
       content: formData.content,
-      publish_time: moment().format('YYYY-MM-DD HH:mm:ss')
+      publish_time: moment().format('YYYY-MM-DD HH:mm:ss'),
+      deleted: 'FALSE'
     })
 
     console.log(messageResult)
