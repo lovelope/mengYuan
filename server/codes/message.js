@@ -9,6 +9,10 @@ const messageCode = {
 
   ERROR_MESSAGE_TYPE: '消息类型错误',
 
+  ERROR_MESSAGE_TITLE: '消息标题错误，含有非法字符或内容过长',
+
+  ERROR_MESSAGE_TOPIC: '消息话题错误，含有非法字符或内容过长',
+
   ERROR_MESSAGE_CONTENT: '消息内容错误，含有非法字符或内容过长',
 
   ERROR_SYS: '系统错误',

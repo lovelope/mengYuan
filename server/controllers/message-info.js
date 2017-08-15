@@ -19,16 +19,19 @@ module.exports = {
       data: {}
     }
 
-    // 检验是否登录
-    let validateLoginResult = userInfoController.validateLogin(formData)
-    if (validateLoginResult.code === -1) {
-      result.message = validateLoginResult.message
-      ctx.body = result
-      return
-    }
+    // // 检验是否登录
+    // let validateLoginResult = userInfoController.validateLogin(formData)
+    // if (validateLoginResult.code === -1) {
+    //   result.message = validateLoginResult.message
+    //   ctx.body = result
+    //   return
+    // }
 
     // 校验数据合法性
     let validateResult = messageInfoService.validatorCreateMessage(formData)
+    console.log(`+++++++++validateResult: start+++++++++`)
+    console.dir(validateResult)
+    console.log(`+++++++++validateResult: end+++++++++`)
     if (validateResult.success === false) {
       result.message = validateResult.message
       ctx.body = result

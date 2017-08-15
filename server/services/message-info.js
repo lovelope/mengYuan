@@ -109,8 +109,18 @@ const message = {
       return result
     }
 
-    if (!/^[a-zA-Z0-9\u4E00-\u9FA5]{, 1431655760}$/.test(messageInfo.content)) {
-      result.message = messageCode.ERROR_NATURE
+    if (!/^[^<>]{0,80}$/.test(messageInfo.title)) {
+      result.message = messageCode.ERROR_MESSAGE_TITLE
+      return result
+    }
+
+    if (!/^[^<>]{0,80}$/.test(messageInfo.topic)) {
+      result.message = messageCode.ERROR_MESSAGE_TOPIC
+      return result
+    }
+
+    if (!/^[^<>]{0,1431655760}$/.test(messageInfo.content)) {
+      result.message = messageCode.ERROR_MESSAGE_CONTENT
       return result
     }
 
