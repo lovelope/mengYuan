@@ -11,22 +11,11 @@
  Target Server Version : 50718
  File Encoding         : 65001
 
- Date: 10/08/2017 17:36:57
+ Date: 16/08/2017 13:43:21
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
-
--- ----------------------------
--- Table structure for _mysql_session_store
--- ----------------------------
-DROP TABLE IF EXISTS `_mysql_session_store`;
-CREATE TABLE `_mysql_session_store`  (
-  `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `expires` bigint(20) DEFAULT NULL,
-  `data` text CHARACTER SET utf8 COLLATE utf8_general_ci,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for message
@@ -40,11 +29,28 @@ CREATE TABLE `message`  (
   `content` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '消息内容，当type为Picture或Video时为路径',
   `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '消息标题',
   `topic` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '话题',
-  `deleted` enum('TURE','FALSE') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '是否被删除',
   PRIMARY KEY (`mid`) USING BTREE,
   INDEX `wechat`(`wechat`) USING BTREE,
   INDEX `publish_time`(`publish_time`) USING BTREE,
   CONSTRAINT `wechat` FOREIGN KEY (`wechat`) REFERENCES `user` (`wechat`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for message_bak
+-- ----------------------------
+DROP TABLE IF EXISTS `message_bak`;
+CREATE TABLE `message_bak`  (
+  `mid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '消息ID，主键',
+  `publish_time` datetime(0) NOT NULL COMMENT '消息发布时间',
+  `wechat` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '微信号，参照user表wechat',
+  `type` enum('String','Picture','Video') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'String' COMMENT '消息类型，可选String,Picture,Video',
+  `content` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '消息内容，当type为Picture或Video时为路径',
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '消息标题',
+  `topic` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '话题',
+  PRIMARY KEY (`mid`) USING BTREE,
+  INDEX `wechat`(`wechat`) USING BTREE,
+  INDEX `publish_time`(`publish_time`) USING BTREE,
+  CONSTRAINT `message_bak_ibfk_1` FOREIGN KEY (`wechat`) REFERENCES `user` (`wechat`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------

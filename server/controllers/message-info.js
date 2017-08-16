@@ -29,9 +29,6 @@ module.exports = {
 
     // 校验数据合法性
     let validateResult = messageInfoService.validatorCreateMessage(formData)
-    console.log(`+++++++++validateResult: start+++++++++`)
-    console.dir(validateResult)
-    console.log(`+++++++++validateResult: end+++++++++`)
     if (validateResult.success === false) {
       result.message = validateResult.message
       ctx.body = result
@@ -45,8 +42,7 @@ module.exports = {
       title: formData.title || '',
       topic: formData.topic || '',
       content: formData.content,
-      publish_time: moment().format('YYYY-MM-DD HH:mm:ss'),
-      deleted: 'FALSE'
+      publish_time: moment().format('YYYY-MM-DD HH:mm:ss')
     })
 
     console.log(messageResult)

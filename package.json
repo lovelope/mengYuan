@@ -1,16 +1,11 @@
 {
   "name": "mengyuan",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "meng yuan",
   "main": "index.js",
   "scripts": {
     "init_sql": "node ./init/index.js",
-    "dev": "npm run dev_server & npm run dev_static",
-    "dev_server": "nodemon --harmony ./server/app",
-    "dev_static": "webpack --watch --config ./static/build/webpack.dev.config.js",
-    "start_static": "webpack --config ./static/build/webpack.prod.config.js",
-    "start_server": "node ./server/app.js",
-    "start": "npm run start_static & npm run start_server",
+    "start": "node ./server/app.js",
     "lint": "standard"
   },
   "author": "lovelope <lovelope@qq.com>",
@@ -20,8 +15,6 @@
     "busboy": "^0.2.14",
     "co": "^4.6.0",
     "debug": "^3.0.0",
-    "ejs": "^2.5.7",
-    "get-video-duration": "^0.2.0",
     "koa": "^2.3.0",
     "koa-bodyparser": "^4.2.0",
     "koa-logger": "^3.0.1",
@@ -32,11 +25,7 @@
     "koa-static": "^4.0.1",
     "koa-views": "^6.0.2",
     "moment": "^2.18.1",
-    "mysql": "^2.14.1",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "validator": "^8.0.0",
-    "whatwg-fetch": "^2.0.3"
+    "mysql": "^2.14.1"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
@@ -47,18 +36,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "babel-runtime": "^6.25.0",
-    "css-loader": "^0.28.4",
-    "extract-text-webpack-plugin": "^3.0.0",
-    "jsx-loader": "^0.13.2",
-    "less": "^2.7.2",
-    "less-loader": "^4.0.5",
-    "node-sass": "^4.5.3",
-    "nodemon": "^1.11.0",
-    "sass-loader": "^6.0.6",
-    "standard": "^10.0.3",
-    "style-loader": "^0.18.2",
-    "webpack": "^3.5.4",
-    "webpack-merge": "^4.1.0"
+    "standard": "^10.0.3"
   },
   "engines": {
     "node": ">= 7.6.0",
@@ -67,8 +45,7 @@
   "standard": {
     "ignore": [
       "**/node_modules/",
-      "**/static/output/dist/",
-      "**/static/output/upload/"
+      "**/static/"
     ]
   }
 }
