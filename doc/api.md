@@ -1,6 +1,7 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [接口](#%E6%8E%A5%E5%8F%A3)
   - [接入页（无需登录的接口）](#%E6%8E%A5%E5%85%A5%E9%A1%B5%E6%97%A0%E9%9C%80%E7%99%BB%E5%BD%95%E7%9A%84%E6%8E%A5%E5%8F%A3)
     - [请求方法：`POST`](#%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95post)
@@ -51,6 +52,13 @@
     - [入参示例](#%E5%85%A5%E5%8F%82%E7%A4%BA%E4%BE%8B-6)
     - [回参](#%E5%9B%9E%E5%8F%82-6)
     - [回参示例](#%E5%9B%9E%E5%8F%82%E7%A4%BA%E4%BE%8B-6)
+  - [通过mid删除一条消息（需登录的接口）](#%E9%80%9A%E8%BF%87mid%E5%88%A0%E9%99%A4%E4%B8%80%E6%9D%A1%E6%B6%88%E6%81%AF%E9%9C%80%E7%99%BB%E5%BD%95%E7%9A%84%E6%8E%A5%E5%8F%A3)
+    - [请求方法：`POST`](#%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95post-7)
+    - [接口地址](#%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80-7)
+    - [入参](#%E5%85%A5%E5%8F%82-7)
+    - [入参示例](#%E5%85%A5%E5%8F%82%E7%A4%BA%E4%BE%8B-7)
+    - [回参](#%E5%9B%9E%E5%8F%82-7)
+    - [回参示例](#%E5%9B%9E%E5%8F%82%E7%A4%BA%E4%BE%8B-7)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -419,5 +427,48 @@
       "content": "今天天气不错,很晴朗"
     }
   ]
+}
+```
+
+## 通过mid删除一条消息（需登录的接口）
+
+### 请求方法：`POST`
+
+### 接口地址
+
+`http://${config.apiServer.host}/api/message/deleteMessageByMid`
+
+### 入参
+
+| 字段名 | 类型       | 说明     | 示例       |
+|--------|------------|----------|------------|
+| wechat | String     | 微信号   | 'wechat11' |
+| mid    | Number:Int | 消息索引 | 1          |
+
+
+
+### 入参示例
+```json
+{
+  "wechat": "wechat11",
+  "mid": 1
+}
+```
+
+### 回参
+
+| 字段名  | 类型       | 说明     | 示例       |
+|---------|------------|----------|------------|
+| code    | Number:Int | 代码     | 0          |
+| message | String     | 说明信息 | "操作成功" |
+| data    | Array      | 数据     | []         |
+
+### 回参示例
+
+```json
+{
+  "code": 0,
+  "message": "操作成功",
+  "data": {}
 }
 ```

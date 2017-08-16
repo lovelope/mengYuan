@@ -270,7 +270,45 @@ module.exports = {
     ctx.body = result
   },
 
-    /**
+  /**
+   * 通过mid删除一条消息
+   * @param   {obejct} ctx 上下文对象
+   */
+  async deleteMessageByMid (ctx) {
+    let formData = ctx.request.body
+    let result = {
+      code: -1,
+      message: '',
+      data: {}
+    }
+
+    // // 检验是否登录
+    // let validateLoginResult = userInfoController.validateLogin(formData)
+    // if (validateLoginResult.code === -1) {
+    //   result.message = validateLoginResult.message
+    //   ctx.body = result
+    //   return
+    // }
+
+    // 从数据库删除消息
+    let messageResult = await messageInfoService.deleteMessageByMid({
+      wechat: formData.wechat,
+      mid: formData.mid
+    })
+
+    console.log(messageResult)
+
+    if (messageResult) {
+      result.code = 0
+      result.message = messageCode.SUCCESS
+    } else {
+      result.message = messageCode.ERROR_SYS
+    }
+
+    ctx.body = result
+  },
+
+  /**
    * 获取所有消息操作
    * @param   {obejct} ctx 上下文对象
    */

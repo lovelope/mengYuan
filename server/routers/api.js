@@ -15,6 +15,7 @@ const routers = router
   .post('/message/getMessageByWechatAndType', messageInfoController.getMessageByWechatAndType)
   .post('/message/getMessageByType', messageInfoController.getMessageByType)
   .post('/message/getMessageByTime', messageInfoController.getMessageByTime)
+  .post('/message/deleteMessageByMid', messageInfoController.deleteMessageByMid)
   .post('/message/upload', messageInfoController.upload)
 
 module.exports = routers

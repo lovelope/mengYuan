@@ -142,6 +142,20 @@ const message = {
     let result = await dbUtils.query(_sql)
 
     return result
+  },
+
+  /**
+   * 根据消息时间段查找消息
+   * @param  {object} options 消息时间段对象
+   * @return {[]}         查找结果
+   */
+  async deleteMessageByMid (options) {
+    let _sql = `
+    DELETE FROM message
+      WHERE mid="${options.mid}" AND wechat like "${options.wechat}"`
+    let result = await dbUtils.query(_sql)
+
+    return result
   }
 
 }

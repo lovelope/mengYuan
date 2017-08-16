@@ -89,6 +89,19 @@ const message = {
   },
 
   /**
+   * 根据类型查找消息
+   * @param  {object} formData 查找的表单数据
+   * @return {array}          查找结果
+   */
+  async deleteMessageByMid (formData) {
+    let resultData = await messageModel.deleteMessageByMid({
+      'wechat': formData.wechat,
+      'mid': formData.mid
+    })
+    return resultData
+  },
+
+  /**
    * 检验用户上传的消息数据
    * @param  {object} messageInfo 用户上传的消息数据
    * @return {object}          校验结果
