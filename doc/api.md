@@ -190,6 +190,7 @@
   "message": "操作成功",
   "data": [
     {
+      "mid": 1,
       "wechat": "wechat11",
       "publish_time": "2017-08-11 10:10:03",
       "title": "今天天气不错",
@@ -243,6 +244,7 @@
   "message": "操作成功",
   "data": [
     {
+      "mid": 1,
       "wechat": "wechat11",
       "publish_time": "2017-08-11 10:10:03",
       "title": "今天天气不错",
@@ -298,6 +300,7 @@
   "message": "操作成功",
   "data": [
     {
+      "mid": 1,
       "wechat": "wechat11",
       "publish_time": "2017-08-11 10:10:03",
       "title": "今天天气不错",
@@ -351,6 +354,7 @@
   "message": "操作成功",
   "data": [
     {
+      "mid": 1,
       "wechat": "wechat11",
       "publish_time": "2017-08-11 10:10:03",
       "title": "今天天气不错",
@@ -406,6 +410,7 @@
   "message": "操作成功",
   "data": [
     {
+      "mid": 1,
       "wechat": "wechat11",
       "publish_time": "2017-08-11 10:10:03",
       "title": "今天天气不错",

@@ -40,7 +40,7 @@ const message = {
     let pageSize = parseInt(options.pageSize)
 
     let _sql = `
-    SELECT wechat, publish_time, title, topic, type, content
+    SELECT mid, wechat, publish_time, title, topic, type, content
       FROM message
       ORDER BY publish_time DESC
       LIMIT ${pageIndex * pageSize}, ${pageSize}`
@@ -58,7 +58,7 @@ const message = {
     let pageSize = parseInt(options.pageSize)
 
     let _sql = `
-    SELECT wechat, publish_time, title, topic, type, content
+    SELECT mid, wechat, publish_time, title, topic, type, content
       FROM message
       WHERE wechat="${options.wechat}"
       ORDER BY publish_time DESC
@@ -94,7 +94,7 @@ const message = {
     let pageSize = parseInt(options.pageSize)
 
     let _sql = `
-    SELECT wechat, publish_time, title, topic, type, content
+    SELECT mid, wechat, publish_time, title, topic, type, content
       FROM message
       WHERE wechat="${options.wechat}" AND type="${options.type}"
       ORDER BY publish_time DESC
@@ -114,7 +114,7 @@ const message = {
     let pageSize = parseInt(options.pageSize)
 
     let _sql = `
-    SELECT wechat, publish_time, title, topic, type, content
+    SELECT mid, wechat, publish_time, title, topic, type, content
       FROM message
       WHERE type="${options.type}"
       ORDER BY publish_time DESC
@@ -134,7 +134,7 @@ const message = {
     let pageSize = parseInt(options.pageSize)
 
     let _sql = `
-    SELECT wechat, publish_time, title, topic, type, content
+    SELECT mid, wechat, publish_time, title, topic, type, content
       FROM message
       WHERE publish_time  BETWEEN "${options.start_time}" AND "${options.end_time}"
       ORDER BY publish_time DESC
