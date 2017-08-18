@@ -7,11 +7,25 @@ const userCode = {
 
   SUCCESS_WAS_LOGIN: '用户已登录',
 
+  ERROR_LOGIN_CODE: '登录码错误',
+
   ERROR_USER_NAME: '用户名格式为6-16位的小写字母，包括-、_',
 
   ERROR_WECHAT: '微信号格式错误',
 
   ERROR_GENDER: '性别格式错误',
+
+  ERROR_LANGUAGE: '语言格式错误',
+
+  ERROR_CITY: '市格式错误',
+
+  ERROR_PROVINCE: '省格式错误',
+
+  ERROR_COUNTRY: '国格式错误',
+
+  ERROR_AVATAR: '头像链接格式错误',
+
+  ERROR_TAG: '标签格式错误',
 
   ERROR_EMAIL: '请输入正确的邮箱地址',
 

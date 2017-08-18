@@ -67,6 +67,5 @@ typings/
 desktop.ini
 Desktop.ini
 
-# Output
-static/output/dist/
-static/output/upload/
+# Private config
+config.json

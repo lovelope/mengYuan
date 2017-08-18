@@ -19,13 +19,23 @@ const user = {
   },
 
   /**
+   * 更新用户信息
+   * @param  {object} user 用户信息
+   * @return {object}      创建结果
+   */
+  async update (user) {
+    let result = await userModel.update(user)
+    return result
+  },
+
+  /**
    * 查找存在用户信息
    * @param  {object} formData 查找的表单数据
    * @return {object|null}      查找结果
    */
   async getExistOne (formData) {
     let resultData = await userModel.getExistOne({
-      'wechat': formData.wechat
+      'openid': formData.openid
     })
     return resultData
   },
@@ -61,8 +71,30 @@ const user = {
   },
 
   /**
-   * 检验用户注册数据
+   * 校验登录码
    * @param  {object} userInfo 用户注册数据
+   * @return {object}          校验结果
+   */
+  validatorAuth (formData) {
+    let result = {
+      success: false,
+      message: ''
+    }
+
+    // 登录码
+    if (!/^[a-zA-Z0-9-]{32}$/.test(formData.loginCode)) {
+      result.message = userCode.ERROR_LOGIN_CODE
+      return result
+    }
+
+    result.success = true
+
+    return result
+  },
+
+  /**
+   * 检验更新用户信息数据
+   * @param  {object} userInfo 用户更新数据
    * @return {object}          校验结果
    */
   validatorSignUp (userInfo) {
@@ -71,40 +103,51 @@ const user = {
       message: ''
     }
 
-    // if (!/^[a-zA-Z]{1}[-_a-zA-Z0-9]{5,19}$/.test(userInfo.userName)) {
-    //   result.message = userCode.ERROR_USER_NAME
-    //   return result
-    // }
-    // if (!validator.isEmail(userInfo.email)) {
-    //   result.message = userCode.ERROR_EMAIL
-    //   return result
-    // }
-    // if (!/[a-zA-Z0-9]{6,16}/.test(userInfo.password)) {
-    //   result.message = userCode.ERROR_PASSWORD
-    //   return result
-    // }
-    // if (userInfo.password !== userInfo.confirmPassword) {
-    //   result.message = userCode.ERROR_PASSWORD_CONFORM
-    //   return result
-    // }
-
-    if (!/^[a-zA-Z]{1}[-_a-zA-Z0-9]{5,19}$/.test(userInfo.wechat)) {
-      result.message = userCode.ERROR_WECHAT
+    // 昵称
+    if (userInfo.nick && !/^[^<>]{1,19}$/.test(userInfo.nick)) {
+      result.message = userCode.ERROR_NICK
       return result
     }
 
-    if (!/^(MAIL|FEMAIL)$/.test(userInfo.gender)) {
+    // 性别
+    if (userInfo.gender && !/^(MAIL|FEMAIL)$/.test(userInfo.gender)) {
       result.message = userCode.ERROR_GENDER
       return result
     }
 
-    if (!/^[a-zA-Z;\s\u4e00-\u9fa5]{0,80}$/gm.test(userInfo.nature)) {
-      result.message = userCode.ERROR_NATURE
+    // 语言
+    if (userInfo.language && !/^[a-z]{2}_[A-Z]{2}$/.test(userInfo.language)) {
+      result.message = userCode.ERROR_LANGUAGE
       return result
     }
 
-    if (!/^[a-zA-Z;\s\u4e00-\u9fa5]{0,80}$/gm.test(userInfo.expect)) {
-      result.message = userCode.ERROR_EXPECT
+    // 市
+    if (userInfo.city && !/^[a-zA-Z']{2,64}$/.test(userInfo.city)) {
+      result.message = userCode.ERROR_CITY
+      return result
+    }
+
+    // 省
+    if (userInfo.province && !/^[a-zA-Z']{2,64}$/.test(userInfo.province)) {
+      result.message = userCode.ERROR_PROVINCE
+      return result
+    }
+
+    // 国
+    if (userInfo.country && !/^[a-zA-Z']{2,64}{2}$/.test(userInfo.country)) {
+      result.message = userCode.ERROR_COUNTRY
+      return result
+    }
+
+    // 头像链接
+    if (userInfo.avatar && !/^https?:\/\/(([a-zA-Z0-9_-])+(\.)?)*(:\d+)?(\/((\.)?(\?)?=?&?[a-zA-Z0-9_-](\?)?)*)*$/.test(userInfo.avatar)) {
+      result.message = userCode.ERROR_AVATAR
+      return result
+    }
+
+    // 标签
+    if (userInfo.tag && !/^[a-zA-Z;[\]\s\u4e00-\u9fa5]{0,80}$/gm.test(JSON.stringify(userInfo.tag))) {
+      result.message = userCode.ERROR_TAG
       return result
     }
 

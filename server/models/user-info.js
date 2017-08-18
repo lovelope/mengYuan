@@ -13,6 +13,16 @@ const user = {
   },
 
   /**
+   * 更新用户信息
+   * @param  {object} model 用户数据模型
+   * @return {object}       mysql执行结果
+   */
+  async update (model) {
+    let result = await dbUtils.updateData('user', model, model.openid)
+    return result
+  },
+
+  /**
    * 查找一个存在用户的数据
    * @param  {obejct} options 查找条件参数
    * @return {object|null}        查找结果
@@ -20,7 +30,7 @@ const user = {
   async getExistOne (options) {
     let _sql = `
     SELECT * from user
-      where wechat="${options.wechat}"
+      where openid="${options.openid}"
       limit 1`
     let result = await dbUtils.query(_sql)
     if (Array.isArray(result) && result.length > 0) {

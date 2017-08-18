@@ -7,17 +7,17 @@ const koaLogger = require('koa-logger')
 const session = require('koa-session-minimal')
 const MysqlStore = require('koa-mysql-session')
 
-const config = require('./../config')
+const ALL_CONFIG = require('./../ALL_CONFIG')
 const routers = require('./routers/index')
 
 const app = new Koa()
 
 // session存储配置
 const sessionMysqlConfig = {
-  user: config.database.USERNAME,
-  password: config.database.PASSWORD,
-  database: config.database.DATABASE,
-  host: config.database.HOST
+  user: ALL_CONFIG.DB.USERNAME,
+  password: ALL_CONFIG.DB.PASSWORD,
+  database: ALL_CONFIG.DB.DATABASE,
+  host: ALL_CONFIG.DB.HOST
 }
 
 // 配置session中间件
@@ -52,5 +52,5 @@ app.use(async (ctx, next) => {
 app.use(routers.routes()).use(routers.allowedMethods())
 
 // 监听启动端口
-app.listen(config.port)
-console.log(`the server is start at port ${config.port}`)
+app.listen(ALL_CONFIG.API_SERVER_PORT)
+console.log(`the server is start at port ${ALL_CONFIG.API_SERVER_PORT}`)

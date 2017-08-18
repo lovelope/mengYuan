@@ -1,10 +1,90 @@
-const userInfoService = require('./../services/user-info')
+const userService = require('./../services/user-info')
 const userCode = require('./../codes/user')
+const wechatUtil = require('./../utils/wechat-util')
 const moment = require('moment')
 
 moment.locale('zh-CN')
 
-module.exports = {
+const userController = {
+
+  /**
+   * 认证操作
+   * @param  {obejct} ctx 上下文对象
+   */
+  async auth (ctx) {
+    let formData = ctx.request.body
+    let result = {
+      code: -1,
+      message: '',
+      data: null
+    }
+
+    // 数据合法性校验
+    let validateResult = userService.validatorAuth(formData)
+    if (validateResult.success === false) {
+      result.message = validateResult.message
+      ctx.body = result
+      return
+    }
+
+    // 根据登录码从腾讯服务器获取openid和session_key
+    await wechatUtil.code2session(formData.loginCode)
+      .then(res => {
+        console.log('userController.auth code2session:', JSON.stringify(res))
+        formData.openid = res.openid
+        formData.session_key = res.session_key
+        formData.expires_in = res.expires_in
+      })
+      .catch(err => {
+        throw new Error(err)
+      })
+
+    // 判断用户是否已存在于数据库
+    let existOne = await userService.getExistOne(formData)
+    console.log('userController.auth existOne: ', JSON.stringify(existOne))
+
+    if (existOne) {
+      // 已注册
+      if (ctx.session.openid) {
+        // 已登录
+
+      } else {
+        // 未登录或登录过期
+        ctx.session = {
+          openid: formData.openid,
+          WECHAT_SESSION: formData.session_key
+        }
+      }
+
+      result = {
+        code: 0,
+        message: userCode.SUCCESS_WAS_LOGIN
+      }
+    } else {
+      // 未注册，去注册
+      let userResult = await userService.create({
+        openid: formData.openid,
+        create_time: moment().format('YYYY-MM-DD HH:mm:ss'),
+        level: 2
+      })
+
+      if (userResult && userResult.insertId * 1 > 0) {
+        // 添加到数据库成功
+        ctx.session = {
+          openid: formData.openid,
+          WECHAT_SESSION: formData.session_key
+        }
+
+        result = {
+          code: 0,
+          message: userCode.SUCCESS
+        }
+      } else {
+        result.message = userCode.ERROR_SYS
+      }
+    }
+    ctx.body = result
+  },
 
   /**
    * 登录操作
@@ -18,7 +98,7 @@ module.exports = {
       data: null
     }
 
-    let userResult = await userInfoService.signIn(formData)
+    let userResult = await userService.signIn(formData)
 
     if (userResult) {
       if (formData.wechat === userResult.wechat) {
@@ -43,10 +123,10 @@ module.exports = {
   },
 
   /**
-   * 注册操作
+   * 更新用户信息
    * @param   {obejct} ctx 上下文对象
    */
-  async signUp (ctx) {
+  async update (ctx) {
     let formData = ctx.request.body
     let result = {
       code: -1,
@@ -54,32 +134,29 @@ module.exports = {
       data: {}
     }
 
-    let validateResult = userInfoService.validatorSignUp(formData)
+    // 将openid添加到表单
+    formData.openid = ctx.session.openid
 
+    // 校验数据合法性
+    let validateResult = userService.validatorUpdate(formData)
     if (validateResult.success === false) {
       result.message = validateResult.message
       ctx.body = result
       return
     }
 
-    let existOne = await userInfoService.getExistOne(formData)
-    console.log(existOne)
-
-    if (existOne) {
-      if (existOne.wechat === formData.wechat) {
-        result.message = userCode.FAIL_WECHAT_IS_EXIST
-        ctx.body = result
-        return
-      }
-    }
-
-    let userResult = await userInfoService.create({
-      wechat: formData.wechat,
-      gender: formData.gender || 'FEMAIL',
-      nature: formData.nature || '',
-      expect: formData.expect || '',
-      create_time: moment().format('YYYY-MM-DD HH:mm:ss'),
-      level: 2
+    // 更新数据库
+    let userResult = await userService.update({
+      openid: formData.openid,
+      nick: formData.nick,
+      gender: formData.gender,
+      language: formData.language,
+      city: formData.city,
+      province: formData.province,
+      country: formData.country,
+      avatar: formData.avatar,
+      tag: formData.tag,
+      modified_time: moment().format('YYYY-MM-DD HH:mm:ss')
     })
 
     console.log(userResult)
@@ -111,7 +188,7 @@ module.exports = {
       data: null
     }
     if (isLogin === true && userName) {
-      let userInfo = await userInfoService.getUserInfoByUserName(userName)
+      let userInfo = await userService.getUserInfoByUserName(userName)
       if (userInfo) {
         result.data = userInfo
         result.success = true
@@ -144,3 +221,5 @@ module.exports = {
   }
 
 }
+
+module.exports = userController

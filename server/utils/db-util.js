@@ -1,14 +1,14 @@
-const allConfig = require('./../../config')
-const config = allConfig.database
+const ALL_CONFIG = require('./../../config')
+const DB_CONFIG = ALL_CONFIG.DB
 const mysql = require('mysql')
 
 const pool = mysql.createPool({
-  host: config.HOST,
-  user: config.USERNAME,
-  password: config.PASSWORD,
-  database: config.DATABASE,
-  timezone: config.TIMEZONE,
-  dateStrings: config.DATE_STRINGS
+  host: DB_CONFIG.HOST,
+  user: DB_CONFIG.USERNAME,
+  password: DB_CONFIG.PASSWORD,
+  database: DB_CONFIG.DATABASE,
+  timezone: DB_CONFIG.TIMEZONE,
+  dateStrings: DB_CONFIG.DATE_STRINGS
 })
 
 let query = function (sql, values) {
@@ -50,9 +50,9 @@ let insertData = function (table, values) {
   return query(_sql, [ table, values ])
 }
 
-let updateData = function (table, values, id) {
-  let _sql = 'UPDATE ?? SET ? WHERE id = ?'
-  return query(_sql, [ table, values, id ])
+let updateData = function (table, values, openid) {
+  let _sql = 'UPDATE ?? SET ? WHERE openid = ?'
+  return query(_sql, [ table, values, openid ])
 }
 
 let deleteDataById = function (table, id) {

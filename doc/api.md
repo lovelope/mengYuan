@@ -64,31 +64,83 @@
 
 # 接口
 
-## 接入页（无需登录的接口）
+## 用户认证
 
 ### 请求方法：`POST`
 
 ### 接口地址
 
-`http://${config.apiServer.host}/api/user/signup`
+`http://${config.apiServer.host}/api/user/auth`
 
 ### 入参
 
-| 字段名 | 类型                   | 说明                         | 示例                             |
-|--------|------------------------|------------------------------|----------------------------------|
-| wechat | String                 | 微信号                       | wechat11                         |
-| gender | enum('MAIL', 'FEMAIL') | 性别                         | FEMAIL                           |
-| nature | String                 | 特点或性格(使用半角分号分隔) | 乐观;王者荣耀钻石段              |
-| expect | String                 | 期望的特点或性格             | 乐观;会打篮球;王者荣耀钻石段以上 |
+| 字段名    | 类型   | 说明   | 示例                               |
+|-----------|--------|--------|------------------------------------|
+| loginCode | String | 登录码 | "003mMmZs0UpONa18UuYs0BPzZs0mMmZ7" |
+
 
 ### 入参示例
 
 ```json
 {
-  "wechat": "wechat11",
-  "gender": "FEMAIL",
-  "nature": "乐观;王者荣耀钻石段",
-  "expect": "乐观;会打篮球;王者荣耀钻石段以上"
+  "loginCode": "003mMmZs0UpONa18UuYs0BPzZs0mMmZ7"
+}
+```
+
+### 回参
+
+| 字段名  | 类型       | 说明     | 示例       |
+|---------|------------|----------|------------|
+| code    | Number:Int | 代码     | 0          |
+| message | String     | 说明信息 | "操作成功" |
+| data    | Object     | 数据     | {}         |
+
+### 回参示例
+
+```json
+{
+  "code": 0,
+  "message": "操作成功",
+  "data": {
+    "SESSION_ID": "460rBfVcYJdBuft04gHeIfi2HrCwnFhy"
+  }
+}
+```
+
+## 更新用户信息
+
+### 请求方法：`POST`
+
+### 接口地址
+
+`http://${config.apiServer.host}/api/user/update`
+
+### 入参
+
+| 字段名   | 类型                   | 说明     | 示例                                                                                                                         |
+|----------|------------------------|----------|------------------------------------------------------------------------------------------------------------------------------|
+| nick     | String                 | 微信昵称 | "Clare Chen"                                                                                                                 |
+| gender   | enum('MAIL', 'FEMAIL') | 性别     | "MAIL"                                                                                                                       |
+| language | String                 | 语言     | "zh_CN"                                                                                                                      |
+| city     | String                 | 市       | "Xi'an"                                                                                                                      |
+| province | String                 | 省       | "ShanXi"                                                                                                                     |
+| country  | String                 | 国       | "CN"                                                                                                                         |
+| avatar   | String                 | 头像链接 | "http://wx.qlogo.cn/mmopen/vi_32/1vZvI39NWFQ9XM4LtQpFrQJ1xlgZxx3w7bQxKARol6503Iuswjjn6nIGBiaycAjAtpujxyzYsrztuuICqIM5ibXQ/0" |
+| tag      | Array                  | 标签     | ["乐观","王者荣耀","游泳"]                                                                                                         |
+
+
+### 入参示例
+
+```json
+{
+  "nick": "Clare Chen",
+  "gender": "MAIL",
+  "language": "zh_CN",
+  "city": "Xi'an",
+  "province": "ShanXi",
+  "country": "CN",
+  "avatar": "http://wx.qlogo.cn/mmopen/vi_32/1vZvI39NWFQ9XM4LtQpFrQJ1xlgZxx3w7bQxKARol6503Iuswjjn6nIGBiaycAjAtpujxyzYsrztuuICqIM5ibXQ/0",
+  "tag": ["乐观","王者荣耀","游泳"]
 }
 ```
 
@@ -109,6 +161,7 @@
   "data": {}
 }
 ```
+
 
 ## 添加发布信息（需要登录的接口）
 
