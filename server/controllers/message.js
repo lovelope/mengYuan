@@ -1,6 +1,6 @@
-const messageInfoService = require('./../services/message')
+const messageController = require('./../services/message')
 const messageCode = require('./../codes/message')
-const userInfoController = require('./user') // 检验用户是否登录
+const userController = require('./user') // 检验用户是否登录
 const uploadUtil = require('./../utils/upload')
 const moment = require('moment')
 moment.locale('zh-CN')
@@ -20,7 +20,7 @@ module.exports = {
     }
 
     // // 检验是否登录
-    // let validateLoginResult = userInfoController.validateLogin(formData)
+    // let validateLoginResult = userController.validateLogin(formData)
     // if (validateLoginResult.code === -1) {
     //   result.message = validateLoginResult.message
     //   ctx.body = result
@@ -28,7 +28,7 @@ module.exports = {
     // }
 
     // 校验数据合法性
-    let validateResult = messageInfoService.validatorCreateMessage(formData)
+    let validateResult = messageController.validatorCreateMessage(formData)
     if (validateResult.success === false) {
       result.message = validateResult.message
       ctx.body = result
@@ -36,7 +36,7 @@ module.exports = {
     }
 
     // 添加数据到数据库
-    let messageResult = await messageInfoService.create({
+    let messageResult = await messageController.create({
       wechat: formData.wechat,
       type: formData.type || 'String',
       title: formData.title || '',
@@ -70,7 +70,7 @@ module.exports = {
     }
 
     // 检验是否登录
-    let validateLoginResult = userInfoController.validateLogin(formData)
+    let validateLoginResult = userController.validateLogin(formData)
     if (validateLoginResult.code === -1) {
       result.message = validateLoginResult.message
       ctx.body = result
@@ -78,7 +78,7 @@ module.exports = {
     }
 
     // // 校验数据合法性
-    // let validateResult = messageInfoService.validatorUpload(formData)
+    // let validateResult = messageController.validatorUpload(formData)
     // if (validateResult.success === false) {
     //   result.message = validateResult.message
     //   ctx.body = result
@@ -88,7 +88,7 @@ module.exports = {
     let uploadResult = await uploadUtil.upload(ctx)
     // 添加数据到数据库
     if (uploadResult.code === 0) {
-      let messageResult = await messageInfoService.create({
+      let messageResult = await messageController.create({
         wechat: formData.wechat,
         type: formData.type,
         title: formData.title || '',
@@ -125,7 +125,7 @@ module.exports = {
     }
 
     // // 检验是否登录
-    // let validateLoginResult = userInfoController.validateLogin(formData)
+    // let validateLoginResult = userController.validateLogin(formData)
     // if (validateLoginResult.code === -1) {
     //   result.message = validateLoginResult.message
     //   ctx.body = result
@@ -133,7 +133,7 @@ module.exports = {
     // }
 
     // 从数据库取消息
-    let messageResult = await messageInfoService.getMessageByWechat({
+    let messageResult = await messageController.getMessageByWechat({
       wechat: formData.wechat
     })
 
@@ -163,7 +163,7 @@ module.exports = {
     }
 
     // // 检验是否登录
-    // let validateLoginResult = userInfoController.validateLogin(formData)
+    // let validateLoginResult = userController.validateLogin(formData)
     // if (validateLoginResult.code === -1) {
     //   result.message = validateLoginResult.message
     //   ctx.body = result
@@ -171,7 +171,7 @@ module.exports = {
     // }
 
     // 从数据库取消息
-    let messageResult = await messageInfoService.getMessageByType({
+    let messageResult = await messageController.getMessageByType({
       type: formData.type
     })
 
@@ -201,7 +201,7 @@ module.exports = {
     }
 
     // // 检验是否登录
-    // let validateLoginResult = userInfoController.validateLogin(formData)
+    // let validateLoginResult = userController.validateLogin(formData)
     // if (validateLoginResult.code === -1) {
     //   result.message = validateLoginResult.message
     //   ctx.body = result
@@ -209,7 +209,7 @@ module.exports = {
     // }
 
     // 从数据库取消息
-    let messageResult = await messageInfoService.getMessageByWechatAndType({
+    let messageResult = await messageController.getMessageByWechatAndType({
       wechat: formData.wechat,
       type: formData.type,
       pageIndex: formData.pageIndex,
@@ -242,7 +242,7 @@ module.exports = {
     }
 
     // // 检验是否登录
-    // let validateLoginResult = userInfoController.validateLogin(formData)
+    // let validateLoginResult = userController.validateLogin(formData)
     // if (validateLoginResult.code === -1) {
     //   result.message = validateLoginResult.message
     //   ctx.body = result
@@ -250,7 +250,7 @@ module.exports = {
     // }
 
     // 从数据库取消息
-    let messageResult = await messageInfoService.getMessageByTime({
+    let messageResult = await messageController.getMessageByTime({
       start_time: formData.start_time,
       end_time: formData.end_time,
       pageIndex: formData.pageIndex,
@@ -283,7 +283,7 @@ module.exports = {
     }
 
     // // 检验是否登录
-    // let validateLoginResult = userInfoController.validateLogin(formData)
+    // let validateLoginResult = userController.validateLogin(formData)
     // if (validateLoginResult.code === -1) {
     //   result.message = validateLoginResult.message
     //   ctx.body = result
@@ -291,7 +291,7 @@ module.exports = {
     // }
 
     // 从数据库删除消息
-    let messageResult = await messageInfoService.deleteMessageByMid({
+    let messageResult = await messageController.deleteMessageByMid({
       wechat: formData.wechat,
       mid: formData.mid
     })
@@ -321,7 +321,7 @@ module.exports = {
     }
 
     // 从数据库取消息
-    let messageResult = await messageInfoService.getMessages({
+    let messageResult = await messageController.getMessages({
       pageIndex: formData.pageIndex,
       pageSize: formData.pageSize
     })

@@ -3,21 +3,21 @@
  */
 
 const router = require('koa-router')()
-const userInfoController = require('./../controllers/user')
-const messageInfoController = require('./../controllers/message')
+const userController = require('./../controllers/user')
+const messageController = require('./../controllers/message')
 
 const routers = router
-  // .post('/user/signIn.json', userInfoController.signIn)
-  // .post('/user/signup', userInfoController.signUp)
-  .post('/user/auth', userInfoController.auth)
-  .post('/user/update', userInfoController.update)
-  .post('/message/add', messageInfoController.add)
-  .post('/message/getMessages', messageInfoController.getMessages)
-  .post('/message/getMessageByWechat', messageInfoController.getMessageByWechat)
-  .post('/message/getMessageByWechatAndType', messageInfoController.getMessageByWechatAndType)
-  .post('/message/getMessageByType', messageInfoController.getMessageByType)
-  .post('/message/getMessageByTime', messageInfoController.getMessageByTime)
-  .post('/message/deleteMessageByMid', messageInfoController.deleteMessageByMid)
-  .post('/message/upload', messageInfoController.upload)
+  // .post('/user/signIn.json', userController.signIn)
+  // .post('/user/signup', userController.signUp)
+  .post('/user/auth', userController.auth)
+  .post('/user/update', userController.update)
+  .post('/message/add', messageController.add)
+  .post('/message/getMessages', messageController.getMessages)
+  .post('/message/getMessageByWechat', messageController.getMessageByUserId)
+  .post('/message/getMessageByWechatAndType', messageController.getMessageByUserIdAndType)
+  .post('/message/getMessageByType', messageController.getMessageByType)
+  .post('/message/getMessageByTime', messageController.getMessageByTime)
+  .post('/message/deleteMessageByMid', messageController.deleteMessageByMid)
+  .post('/message/upload', messageController.upload)
 
 module.exports = routers
