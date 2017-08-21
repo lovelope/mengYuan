@@ -37,7 +37,7 @@ module.exports = {
 
     // 添加数据到数据库
     let messageResult = await messageController.create({
-      wechat: formData.wechat,
+      userId: formData.userId,
       type: formData.type || 'String',
       title: formData.title || '',
       topic: formData.topic || '',
@@ -89,7 +89,7 @@ module.exports = {
     // 添加数据到数据库
     if (uploadResult.code === 0) {
       let messageResult = await messageController.create({
-        wechat: formData.wechat,
+        userId: formData.userId,
         type: formData.type,
         title: formData.title || '',
         topic: formData.topic || '',
@@ -116,7 +116,7 @@ module.exports = {
    * 获取某用户消息操作
    * @param   {obejct} ctx 上下文对象
    */
-  async getMessageByWechat (ctx) {
+  async getMessageByUserId (ctx) {
     let formData = ctx.request.body
     let result = {
       code: -1,
@@ -133,8 +133,8 @@ module.exports = {
     // }
 
     // 从数据库取消息
-    let messageResult = await messageController.getMessageByWechat({
-      wechat: formData.wechat
+    let messageResult = await messageController.getMessageByUserId({
+      userId: formData.userId
     })
 
     console.log(messageResult)
@@ -192,7 +192,7 @@ module.exports = {
    * 获取某用户的某类消息操作
    * @param   {obejct} ctx 上下文对象
    */
-  async getMessageByWechatAndType (ctx) {
+  async getMessageByUserIdAndType (ctx) {
     let formData = ctx.request.body
     let result = {
       code: -1,
@@ -209,8 +209,8 @@ module.exports = {
     // }
 
     // 从数据库取消息
-    let messageResult = await messageController.getMessageByWechatAndType({
-      wechat: formData.wechat,
+    let messageResult = await messageController.getMessageByUserIdAndType({
+      userId: formData.userId,
       type: formData.type,
       pageIndex: formData.pageIndex,
       pageSize: formData.pageSize
@@ -292,7 +292,7 @@ module.exports = {
 
     // 从数据库删除消息
     let messageResult = await messageController.deleteMessageByMid({
-      wechat: formData.wechat,
+      userId: formData.userId,
       mid: formData.mid
     })
 

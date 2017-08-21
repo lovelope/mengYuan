@@ -40,7 +40,7 @@ const message = {
     let pageSize = parseInt(options.pageSize)
 
     let _sql = `
-    SELECT mid, wechat, publish_time, title, topic, type, content
+    SELECT mid, userId, publish_time, title, topic, type, content
       FROM message
       ORDER BY publish_time DESC
       LIMIT ${pageIndex * pageSize}, ${pageSize}`
@@ -53,14 +53,14 @@ const message = {
    * @param  {obejct} options 查找条件参数
    * @return {[]}             查找结果
    */
-  async getMessageByWechat (options) {
+  async getMessageByUserId (options) {
     let pageIndex = parseInt(options.pageIndex)
     let pageSize = parseInt(options.pageSize)
 
     let _sql = `
-    SELECT mid, wechat, publish_time, title, topic, type, content
+    SELECT mid, userId, publish_time, title, topic, type, content
       FROM message
-      WHERE wechat="${options.wechat}"
+      WHERE userId="${options.userId}"
       ORDER BY publish_time DESC
       LIMIT ${pageIndex * pageSize}, ${pageSize}`
     let result = await dbUtils.query(_sql)
@@ -75,7 +75,7 @@ const message = {
    */
   async getMessageByMid (options) {
     let _sql = `
-    SELECT wechat, publish_time, title, topic, type, content
+    SELECT userId, publish_time, title, topic, type, content
       FROM message
       WHERE mid="${options.mid}"
       LIMIT 1`
@@ -89,14 +89,14 @@ const message = {
    * @param  {object} options 消息类型对象
    * @return {[]}         查找结果
    */
-  async getMessageByWechatAndType (options) {
+  async getMessageByUserIdAndType (options) {
     let pageIndex = parseInt(options.pageIndex)
     let pageSize = parseInt(options.pageSize)
 
     let _sql = `
-    SELECT mid, wechat, publish_time, title, topic, type, content
+    SELECT mid, userId, publish_time, title, topic, type, content
       FROM message
-      WHERE wechat="${options.wechat}" AND type="${options.type}"
+      WHERE userId="${options.userId}" AND type="${options.type}"
       ORDER BY publish_time DESC
       LIMIT ${pageIndex * pageSize}, ${pageSize}`
     let result = await dbUtils.query(_sql)
@@ -114,7 +114,7 @@ const message = {
     let pageSize = parseInt(options.pageSize)
 
     let _sql = `
-    SELECT mid, wechat, publish_time, title, topic, type, content
+    SELECT mid, userId, publish_time, title, topic, type, content
       FROM message
       WHERE type="${options.type}"
       ORDER BY publish_time DESC
@@ -134,7 +134,7 @@ const message = {
     let pageSize = parseInt(options.pageSize)
 
     let _sql = `
-    SELECT mid, wechat, publish_time, title, topic, type, content
+    SELECT mid, userId, publish_time, title, topic, type, content
       FROM message
       WHERE publish_time  BETWEEN "${options.start_time}" AND "${options.end_time}"
       ORDER BY publish_time DESC
@@ -152,7 +152,7 @@ const message = {
   async deleteMessageByMid (options) {
     let _sql = `
     DELETE FROM message
-      WHERE mid="${options.mid}" AND wechat like "${options.wechat}"`
+      WHERE mid="${options.mid}" AND userId like "${options.userId}"`
     let result = await dbUtils.query(_sql)
 
     return result
