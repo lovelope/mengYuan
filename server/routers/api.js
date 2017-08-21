@@ -7,8 +7,10 @@ const userInfoController = require('./../controllers/user-info')
 const messageInfoController = require('./../controllers/message-info')
 
 const routers = router
-  .post('/user/signIn.json', userInfoController.signIn)
-  .post('/user/signup', userInfoController.signUp)
+  // .post('/user/signIn.json', userInfoController.signIn)
+  // .post('/user/signup', userInfoController.signUp)
+  .post('/user/auth', userInfoController.auth)
+  .post('/user/update', userInfoController.update)
   .post('/message/add', messageInfoController.add)
   .post('/message/getMessages', messageInfoController.getMessages)
   .post('/message/getMessageByWechat', messageInfoController.getMessageByWechat)
