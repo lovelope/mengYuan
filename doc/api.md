@@ -1,85 +1,36 @@
+# 接口
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 
-- [接口](#%E6%8E%A5%E5%8F%A3)
-  - [接入页（无需登录的接口）](#%E6%8E%A5%E5%85%A5%E9%A1%B5%E6%97%A0%E9%9C%80%E7%99%BB%E5%BD%95%E7%9A%84%E6%8E%A5%E5%8F%A3)
-    - [请求方法：`POST`](#%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95post)
-    - [接口地址](#%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80)
-    - [入参](#%E5%85%A5%E5%8F%82)
-    - [入参示例](#%E5%85%A5%E5%8F%82%E7%A4%BA%E4%BE%8B)
-    - [回参](#%E5%9B%9E%E5%8F%82)
-    - [回参示例](#%E5%9B%9E%E5%8F%82%E7%A4%BA%E4%BE%8B)
-  - [添加发布信息（需要登录的接口）](#%E6%B7%BB%E5%8A%A0%E5%8F%91%E5%B8%83%E4%BF%A1%E6%81%AF%E9%9C%80%E8%A6%81%E7%99%BB%E5%BD%95%E7%9A%84%E6%8E%A5%E5%8F%A3)
-    - [请求方法：`POST`](#%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95post-1)
-    - [接口地址](#%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80-1)
-    - [入参](#%E5%85%A5%E5%8F%82-1)
-    - [入参示例](#%E5%85%A5%E5%8F%82%E7%A4%BA%E4%BE%8B-1)
-    - [回参](#%E5%9B%9E%E5%8F%82-1)
-    - [回参示例](#%E5%9B%9E%E5%8F%82%E7%A4%BA%E4%BE%8B-1)
-  - [获取多条消息（无需登录的接口）](#%E8%8E%B7%E5%8F%96%E5%A4%9A%E6%9D%A1%E6%B6%88%E6%81%AF%E6%97%A0%E9%9C%80%E7%99%BB%E5%BD%95%E7%9A%84%E6%8E%A5%E5%8F%A3)
-    - [请求方法：`POST`](#%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95post-2)
-    - [接口地址](#%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80-2)
-    - [入参](#%E5%85%A5%E5%8F%82-2)
-    - [入参示例](#%E5%85%A5%E5%8F%82%E7%A4%BA%E4%BE%8B-2)
-    - [回参](#%E5%9B%9E%E5%8F%82-2)
-    - [回参示例](#%E5%9B%9E%E5%8F%82%E7%A4%BA%E4%BE%8B-2)
-  - [通过微信号获取多条消息（需登录的接口）](#%E9%80%9A%E8%BF%87%E5%BE%AE%E4%BF%A1%E5%8F%B7%E8%8E%B7%E5%8F%96%E5%A4%9A%E6%9D%A1%E6%B6%88%E6%81%AF%E9%9C%80%E7%99%BB%E5%BD%95%E7%9A%84%E6%8E%A5%E5%8F%A3)
-    - [请求方法：`POST`](#%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95post-3)
-    - [接口地址](#%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80-3)
-    - [入参](#%E5%85%A5%E5%8F%82-3)
-    - [入参示例](#%E5%85%A5%E5%8F%82%E7%A4%BA%E4%BE%8B-3)
-    - [回参](#%E5%9B%9E%E5%8F%82-3)
-    - [回参示例](#%E5%9B%9E%E5%8F%82%E7%A4%BA%E4%BE%8B-3)
-  - [通过微信号和消息类型获取多条消息（需登录的接口）](#%E9%80%9A%E8%BF%87%E5%BE%AE%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%B6%88%E6%81%AF%E7%B1%BB%E5%9E%8B%E8%8E%B7%E5%8F%96%E5%A4%9A%E6%9D%A1%E6%B6%88%E6%81%AF%E9%9C%80%E7%99%BB%E5%BD%95%E7%9A%84%E6%8E%A5%E5%8F%A3)
-    - [请求方法：`POST`](#%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95post-4)
-    - [接口地址](#%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80-4)
-    - [入参](#%E5%85%A5%E5%8F%82-4)
-    - [入参示例](#%E5%85%A5%E5%8F%82%E7%A4%BA%E4%BE%8B-4)
-    - [回参](#%E5%9B%9E%E5%8F%82-4)
-    - [回参示例](#%E5%9B%9E%E5%8F%82%E7%A4%BA%E4%BE%8B-4)
-  - [通过消息类型获取多条消息（需登录的接口）](#%E9%80%9A%E8%BF%87%E6%B6%88%E6%81%AF%E7%B1%BB%E5%9E%8B%E8%8E%B7%E5%8F%96%E5%A4%9A%E6%9D%A1%E6%B6%88%E6%81%AF%E9%9C%80%E7%99%BB%E5%BD%95%E7%9A%84%E6%8E%A5%E5%8F%A3)
-    - [请求方法：`POST`](#%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95post-5)
-    - [接口地址](#%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80-5)
-    - [入参](#%E5%85%A5%E5%8F%82-5)
-    - [入参示例](#%E5%85%A5%E5%8F%82%E7%A4%BA%E4%BE%8B-5)
-    - [回参](#%E5%9B%9E%E5%8F%82-5)
-    - [回参示例](#%E5%9B%9E%E5%8F%82%E7%A4%BA%E4%BE%8B-5)
-  - [通过时间段获取多条消息（需登录的接口）](#%E9%80%9A%E8%BF%87%E6%97%B6%E9%97%B4%E6%AE%B5%E8%8E%B7%E5%8F%96%E5%A4%9A%E6%9D%A1%E6%B6%88%E6%81%AF%E9%9C%80%E7%99%BB%E5%BD%95%E7%9A%84%E6%8E%A5%E5%8F%A3)
-    - [请求方法：`POST`](#%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95post-6)
-    - [接口地址](#%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80-6)
-    - [入参](#%E5%85%A5%E5%8F%82-6)
-    - [入参示例](#%E5%85%A5%E5%8F%82%E7%A4%BA%E4%BE%8B-6)
-    - [回参](#%E5%9B%9E%E5%8F%82-6)
-    - [回参示例](#%E5%9B%9E%E5%8F%82%E7%A4%BA%E4%BE%8B-6)
-  - [通过mid删除一条消息（需登录的接口）](#%E9%80%9A%E8%BF%87mid%E5%88%A0%E9%99%A4%E4%B8%80%E6%9D%A1%E6%B6%88%E6%81%AF%E9%9C%80%E7%99%BB%E5%BD%95%E7%9A%84%E6%8E%A5%E5%8F%A3)
-    - [请求方法：`POST`](#%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95post-7)
-    - [接口地址](#%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80-7)
-    - [入参](#%E5%85%A5%E5%8F%82-7)
-    - [入参示例](#%E5%85%A5%E5%8F%82%E7%A4%BA%E4%BE%8B-7)
-    - [回参](#%E5%9B%9E%E5%8F%82-7)
-    - [回参示例](#%E5%9B%9E%E5%8F%82%E7%A4%BA%E4%BE%8B-7)
+- [用户认证](#%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81)
+- [更新用户信息](#%E6%9B%B4%E6%96%B0%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF)
+- [添加发布信息（需要登录的接口）](#%E6%B7%BB%E5%8A%A0%E5%8F%91%E5%B8%83%E4%BF%A1%E6%81%AF%E9%9C%80%E8%A6%81%E7%99%BB%E5%BD%95%E7%9A%84%E6%8E%A5%E5%8F%A3)
+- [获取多条消息（无需登录的接口）](#%E8%8E%B7%E5%8F%96%E5%A4%9A%E6%9D%A1%E6%B6%88%E6%81%AF%E6%97%A0%E9%9C%80%E7%99%BB%E5%BD%95%E7%9A%84%E6%8E%A5%E5%8F%A3)
+- [通过userId获取多条消息（需登录的接口）](#%E9%80%9A%E8%BF%87userid%E8%8E%B7%E5%8F%96%E5%A4%9A%E6%9D%A1%E6%B6%88%E6%81%AF%E9%9C%80%E7%99%BB%E5%BD%95%E7%9A%84%E6%8E%A5%E5%8F%A3)
+- [通过userId和消息类型获取多条消息（需登录的接口）](#%E9%80%9A%E8%BF%87userid%E5%92%8C%E6%B6%88%E6%81%AF%E7%B1%BB%E5%9E%8B%E8%8E%B7%E5%8F%96%E5%A4%9A%E6%9D%A1%E6%B6%88%E6%81%AF%E9%9C%80%E7%99%BB%E5%BD%95%E7%9A%84%E6%8E%A5%E5%8F%A3)
+- [通过消息类型获取多条消息（需登录的接口）](#%E9%80%9A%E8%BF%87%E6%B6%88%E6%81%AF%E7%B1%BB%E5%9E%8B%E8%8E%B7%E5%8F%96%E5%A4%9A%E6%9D%A1%E6%B6%88%E6%81%AF%E9%9C%80%E7%99%BB%E5%BD%95%E7%9A%84%E6%8E%A5%E5%8F%A3)
+- [通过时间段获取多条消息（需登录的接口）](#%E9%80%9A%E8%BF%87%E6%97%B6%E9%97%B4%E6%AE%B5%E8%8E%B7%E5%8F%96%E5%A4%9A%E6%9D%A1%E6%B6%88%E6%81%AF%E9%9C%80%E7%99%BB%E5%BD%95%E7%9A%84%E6%8E%A5%E5%8F%A3)
+- [通过mid删除一条消息（需登录的接口）](#%E9%80%9A%E8%BF%87mid%E5%88%A0%E9%99%A4%E4%B8%80%E6%9D%A1%E6%B6%88%E6%81%AF%E9%9C%80%E7%99%BB%E5%BD%95%E7%9A%84%E6%8E%A5%E5%8F%A3)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-# 接口
-
 ## 用户认证
 
-### 请求方法：`POST`
+> 请求方法：`POST`
 
-### 接口地址
+> 接口地址
 
 `http://${config.apiServer.host}/api/user/auth`
 
-### 入参
+> 入参
 
-| 字段名    | 类型   | 说明   | 示例                               |
-|-----------|--------|--------|------------------------------------|
-| loginCode | String | 登录码 | "003mMmZs0UpONa18UuYs0BPzZs0mMmZ7" |
+| 字段名    | 类型   | 是否必填 | 说明   | 示例                               |
+|-----------|--------|----------|--------|------------------------------------|
+| loginCode | String | 必填 | 登录码 | "003mMmZs0UpONa18UuYs0BPzZs0mMmZ7" |
 
-
-### 入参示例
+> 入参示例
 
 ```json
 {
@@ -87,21 +38,22 @@
 }
 ```
 
-### 回参
+> 回参
 
-| 字段名  | 类型       | 说明     | 示例       |
-|---------|------------|----------|------------|
-| code    | Number:Int | 代码     | 0          |
-| message | String     | 说明信息 | "操作成功" |
-| data    | Object     | 数据     | {}         |
+| 字段名  | 类型       | 是否必填 | 说明     | 示例       |
+|---------|------------|----------|----------|------------|
+| code    | Number:Int | 必填     | 代码     | 0          |
+| message | String     | 必填     | 说明信息 | "操作成功" |
+| data    | Object     | 必填     | 数据     | {}         |
 
-### 回参示例
+> 回参示例
 
 ```json
 {
   "code": 0,
   "message": "操作成功",
   "data": {
+    "userId": 1,
     "SESSION_ID": "460rBfVcYJdBuft04gHeIfi2HrCwnFhy"
   }
 }
@@ -109,30 +61,31 @@
 
 ## 更新用户信息
 
-### 请求方法：`POST`
+> 请求方法：`POST`
 
-### 接口地址
+> 接口地址
 
 `http://${config.apiServer.host}/api/user/update`
 
-### 入参
+> 入参
 
-| 字段名   | 类型                   | 说明     | 示例                                                                                                                         |
-|----------|------------------------|----------|------------------------------------------------------------------------------------------------------------------------------|
-| nick     | String                 | 微信昵称 | "Clare Chen"                                                                                                                 |
-| gender   | enum('MAIL', 'FEMAIL') | 性别     | "MAIL"                                                                                                                       |
-| language | String                 | 语言     | "zh_CN"                                                                                                                      |
-| city     | String                 | 市       | "Xi'an"                                                                                                                      |
-| province | String                 | 省       | "ShanXi"                                                                                                                     |
-| country  | String                 | 国       | "CN"                                                                                                                         |
-| avatar   | String                 | 头像链接 | "http://wx.qlogo.cn/mmopen/vi_32/1vZvI39NWFQ9XM4LtQpFrQJ1xlgZxx3w7bQxKARol6503Iuswjjn6nIGBiaycAjAtpujxyzYsrztuuICqIM5ibXQ/0" |
-| tag      | Array                  | 标签     | ["乐观","王者荣耀","游泳"]                                                                                                         |
+| 字段名   | 类型                   | 是否必填 | 说明     | 示例                                                                                                                         |
+|----------|------------------------|----------|----------|------------------------------------------------------------------------------------------------------------------------------|
+| userId   | Number:Int             | 必填     | 用户id   | 1                                                                                                                            |
+| nick     | String                 | 必填     | 微信昵称 | "Clare Chen"                                                                                                                 |
+| gender   | enum('MAIL', 'FEMAIL') | 必填     | 性别     | "MAIL"                                                                                                                       |
+| language | String                 | 必填     | 语言     | "zh_CN"                                                                                                                      |
+| city     | String                 | 必填     | 市       | "Xi'an"                                                                                                                      |
+| province | String                 | 必填     | 省       | "ShanXi"                                                                                                                     |
+| country  | String                 | 必填     | 国       | "CN"                                                                                                                         |
+| avatar   | String                 | 必填     | 头像链接 | "http://wx.qlogo.cn/mmopen/vi_32/1vZvI39NWFQ9XM4LtQpFrQJ1xlgZxx3w7bQxKARol6503Iuswjjn6nIGBiaycAjAtpujxyzYsrztuuICqIM5ibXQ/0" |
+| tag      | Array                  | 必填     | 标签     | ["乐观","王者荣耀","游泳"]                                                                                                   |
 
-
-### 入参示例
+> 入参示例
 
 ```json
 {
+  "userId": 1,
   "nick": "Clare Chen",
   "gender": "MAIL",
   "language": "zh_CN",
@@ -144,15 +97,15 @@
 }
 ```
 
-### 回参
+> 回参
 
-| 字段名  | 类型         | 说明     | 示例       |
-|---------|--------------|----------|------------|
-| code    | Number:Int   | 代码     | 0          |
-| message | String       | 说明信息 | "操作成功" |
-| data    | Object/Array | 数据     | {}         |
+| 字段名  | 类型       | 是否必填 | 说明     | 示例       |
+|---------|------------|----------|----------|------------|
+| code    | Number:Int | 必填     | 代码     | 0          |
+| message | String     | 必填     | 说明信息 | "操作成功" |
+| data    | Object     | 必填     | 数据     | {}         |
 
-### 回参示例
+> 回参示例
 
 ```json
 {
@@ -165,27 +118,27 @@
 
 ## 添加发布信息（需要登录的接口）
 
-### 请求方法：`POST`
+> 请求方法：`POST`
 
-### 接口地址
+> 接口地址
 
 `http://${config.apiServer.host}/api/message/add`
 
-### 入参
+> 入参
 
-| 字段名  | 类型                               | 说明                   | 示例                |
-|---------|------------------------------------|------------------------|---------------------|
-| wechat  | String                             | 微信号                 | wechat11            |
-| type    | enum('String', 'Picture', 'Video') | 消息类型               | String              |
-| title   | String                             | 标题                   | 今天天气不错        |
-| topic   | String                             | 话题(使用半角分号分隔) | 天气;晴朗           |
-| content | String                             | 内容数据               | 今天天气不错,很晴朗 |
+| 字段名  | 类型                               | 是否必填 | 说明                   | 示例                |
+|---------|------------------------------------|----------|------------------------|---------------------|
+| userId  | Number:Int                         | 必填     | 用户id                 | 1                   |
+| type    | enum('String', 'Picture', 'Video') | 必填     | 消息类型               | String              |
+| title   | String                             | 可选     | 标题                   | 今天天气不错        |
+| topic   | String                             | 必填     | 话题(使用半角分号分隔) | 天气;晴朗           |
+| content | String                             | 必填     | 内容数据               | 今天天气不错,很晴朗 |
 
-### 入参示例
+> 入参示例
 
 ```json
 {
-  "wechat": "wechat11",
+  "userId": 1,
   "type": "String",
   "title": "今天天气不错",
   "topic": "天气;晴朗",
@@ -193,15 +146,15 @@
 }
 ```
 
-### 回参
+> 回参
 
-| 字段名  | 类型         | 说明     | 示例       |
-|---------|--------------|----------|------------|
-| code    | Number:Int   | 代码     | 0          |
-| message | String       | 说明信息 | "操作成功" |
-| data    | Object/Array | 数据     | {}         |
+| 字段名  | 类型       | 是否必填 | 说明     | 示例       |
+|---------|------------|----------|----------|------------|
+| code    | Number:Int | 必填     | 代码     | 0          |
+| message | String     | 必填     | 说明信息 | "操作成功" |
+| data    | Object     | 必填     | 数据     | {}         |
 
-### 回参示例
+> 回参示例
 
 ```json
 {
@@ -213,37 +166,40 @@
 
 ## 获取多条消息（无需登录的接口）
 
-### 请求方法：`POST`
+> 请求方法：`POST`
 
-### 接口地址
+> 接口地址
 
 `http://${config.apiServer.host}/api/message/getMessages`
 
-### 入参
+> 入参
 
-| 字段名    | 类型       | 说明               | 示例 |
-|-----------|------------|--------------------|------|
-| pageIndex | Number:Int | 分页索引（从0开始）  | 0    |
-| pageSize  | Number:Int | 分页大小（默认为10） | 10   |
+| 字段名    | 类型       | 是否必填 | 说明                      | 示例 |
+|-----------|------------|----------|---------------------------|------|
+| userId    | Number:Int | 可选     | 用户id                    | 1    |
+| pageIndex | Number:Int | 必填     | 分页索引（默认为0，从0开始） | 0    |
+| pageSize  | Number:Int | 必填     | 分页大小（默认为10）        | 10   |
 
 
-### 入参示例
+> 入参示例
+
 ```json
 {
+  "userId": 1,
   "pageIndex": 0,
   "pageSize": 10
 }
 ```
 
-### 回参
+> 回参
 
-| 字段名  | 类型       | 说明     | 示例       |
-|---------|------------|----------|------------|
-| code    | Number:Int | 代码     | 0          |
-| message | String     | 说明信息 | "操作成功" |
-| data    | Array      | 数据     | []         |
+| 字段名  | 类型       | 是否必填 | 说明     | 示例       |
+|---------|------------|----------|----------|------------|
+| code    | Number:Int | 必填     | 代码     | 0          |
+| message | String     | 必填     | 说明信息 | "操作成功" |
+| data    | Array      | 必填     | 数据     | []         |
 
-### 回参示例
+> 回参示例
 
 ```json
 {
@@ -252,7 +208,16 @@
   "data": [
     {
       "mid": 1,
-      "wechat": "wechat11",
+      "userId": 1,
+      "publish_time": "2017-08-11 10:10:03",
+      "title": "今天天气不错",
+      "topic": "天气;晴朗",
+      "type": "String",
+      "content": "今天天气不错,很晴朗"
+    },
+    {
+      "mid": 2,
+      "userId": 2,
       "publish_time": "2017-08-11 10:10:03",
       "title": "今天天气不错",
       "topic": "天气;晴朗",
@@ -263,41 +228,43 @@
 }
 ```
 
-## 通过微信号获取多条消息（需登录的接口）
+## 通过userId获取多条消息（需登录的接口）
 
-### 请求方法：`POST`
+> 请求方法：`POST`
 
-### 接口地址
+> 接口地址
 
-`http://${config.apiServer.host}/api/message/getMessageByWechat`
+`http://${config.apiServer.host}/api/message/getMessageByUserId`
 
-### 入参
+> 入参
 
-| 字段名    | 类型       | 说明               | 示例     |
-|-----------|------------|--------------------|----------|
-| wechat    | String     | 微信号             | wechat11 |
-| pageIndex | Number:Int | 分页索引（从0开始）  | 0        |
-| pageSize  | Number:Int | 分页大小（默认为10） | 10       |
+| 字段名       | 类型       | 是否必填 | 说明               | 示例 |
+|--------------|------------|----------|--------------------|------|
+| userId       | Number:Int | 必填     | 用户id             | 1    |
+| targetUserId | Number:Int | 必填     | 目标用户id         | 2    |
+| pageIndex    | Number:Int | 必填     | 分页索引（从0开始）  | 0    |
+| pageSize     | Number:Int | 必填     | 分页大小（默认为10） | 10   |
 
 
-### 入参示例
+> 入参示例
 ```json
 {
-  "wechat": "wechat11",
+  "userId": 1,
+  "targetUserId": 2,
   "pageIndex": 0,
   "pageSize": 10
 }
 ```
 
-### 回参
+> 回参
 
-| 字段名  | 类型       | 说明     | 示例       |
-|---------|------------|----------|------------|
-| code    | Number:Int | 代码     | 0          |
-| message | String     | 说明信息 | "操作成功" |
-| data    | Array      | 数据     | []         |
+| 字段名  | 类型       | 是否必填 | 说明     | 示例       |
+|---------|------------|----------|----------|------------|
+| code    | Number:Int | 必填     | 代码     | 0          |
+| message | String     | 必填     | 说明信息 | "操作成功" |
+| data    | Array      | 必填     | 数据     | []         |
 
-### 回参示例
+> 回参示例
 
 ```json
 {
@@ -305,8 +272,8 @@
   "message": "操作成功",
   "data": [
     {
-      "mid": 1,
-      "wechat": "wechat11",
+      "mid": 2,
+      "userId": 2,
       "publish_time": "2017-08-11 10:10:03",
       "title": "今天天气不错",
       "topic": "天气;晴朗",
@@ -317,43 +284,45 @@
 }
 ```
 
-## 通过微信号和消息类型获取多条消息（需登录的接口）
+## 通过userId和消息类型获取多条消息（需登录的接口）
 
-### 请求方法：`POST`
+> 请求方法：`POST`
 
-### 接口地址
+> 接口地址
 
-`http://${config.apiServer.host}/api/message/getMessageByWechatAndType`
+`http://${config.apiServer.host}/api/message/getMessageByUserIdAndType`
 
-### 入参
+> 入参
 
-| 字段名    | 类型       | 说明               | 示例     |
-|-----------|------------|--------------------|----------|
-| wechat    | String     | 微信号             | wechat11 |
-| type      | String     | 消息类型           | String   |
-| pageIndex | Number:Int | 分页索引（从0开始）  | 0        |
-| pageSize  | Number:Int | 分页大小（默认为10） | 10       |
+| 字段名       | 类型       | 是否必填 | 说明               | 示例   |
+|--------------|------------|----------|--------------------|--------|
+| userId       | Number:Int | 必填     | 用户id             | 1      |
+| targetUserId | Number:Int | 必填     | 目标用户id         | 2      |
+| type         | String     | 必填     | 消息类型           | String |
+| pageIndex    | Number:Int | 必填     | 分页索引（从0开始）  | 0      |
+| pageSize     | Number:Int | 必填     | 分页大小（默认为10） | 10     |
 
 
-### 入参示例
+> 入参示例
 ```json
 {
-  "wechat": "wechat11",
+  "userId": 1,
+  "targetUserId": 2,
   "type": "String",
   "pageIndex": 0,
   "pageSize": 10
 }
 ```
 
-### 回参
+> 回参
 
-| 字段名  | 类型       | 说明     | 示例       |
-|---------|------------|----------|------------|
-| code    | Number:Int | 代码     | 0          |
-| message | String     | 说明信息 | "操作成功" |
-| data    | Array      | 数据     | []         |
+| 字段名  | 类型       | 是否必填 | 说明     | 示例       |
+|---------|------------|----------|----------|------------|
+| code    | Number:Int | 必填     | 代码     | 0          |
+| message | String     | 必填     | 说明信息 | "操作成功" |
+| data    | Array      | 必填     | 数据     | []         |
 
-### 回参示例
+> 回参示例
 
 ```json
 {
@@ -361,8 +330,8 @@
   "message": "操作成功",
   "data": [
     {
-      "mid": 1,
-      "wechat": "wechat11",
+      "mid": 2,
+      "userId": 2,
       "publish_time": "2017-08-11 10:10:03",
       "title": "今天天气不错",
       "topic": "天气;晴朗",
@@ -375,22 +344,23 @@
 
 ## 通过消息类型获取多条消息（需登录的接口）
 
-### 请求方法：`POST`
+> 请求方法：`POST`
 
-### 接口地址
+> 接口地址
 
 `http://${config.apiServer.host}/api/message/getMessageByType`
 
-### 入参
+> 入参
 
-| 字段名    | 类型       | 说明               | 示例     |
-|-----------|------------|--------------------|----------|
-| type      | String     | 消息类型           | String   |
-| pageIndex | Number:Int | 分页索引（从0开始）  | 0        |
-| pageSize  | Number:Int | 分页大小（默认为10） | 10       |
+| 字段名    | 类型       | 是否必填 | 说明               | 示例   |
+|-----------|------------|----------|--------------------|--------|
+| userId    | Number:Int | 必填     | 用户id             | 1      |
+| type      | String     | 必填     | 消息类型           | String |
+| pageIndex | Number:Int | 必填     | 分页索引（从0开始）  | 0      |
+| pageSize  | Number:Int | 必填     | 分页大小（默认为10） | 10     |
 
 
-### 入参示例
+> 入参示例
 ```json
 {
   "type": "String",
@@ -399,15 +369,15 @@
 }
 ```
 
-### 回参
+> 回参
 
-| 字段名  | 类型       | 说明     | 示例       |
-|---------|------------|----------|------------|
-| code    | Number:Int | 代码     | 0          |
-| message | String     | 说明信息 | "操作成功" |
-| data    | Array      | 数据     | []         |
+| 字段名  | 类型       | 是否必填 | 说明     | 示例       |
+|---------|------------|----------|----------|------------|
+| code    | Number:Int | 必填     | 代码     | 0          |
+| message | String     | 必填     | 说明信息 | "操作成功" |
+| data    | Array      | 必填     | 数据     | []         |
 
-### 回参示例
+> 回参示例
 
 ```json
 {
@@ -416,7 +386,16 @@
   "data": [
     {
       "mid": 1,
-      "wechat": "wechat11",
+      "userId": 1,
+      "publish_time": "2017-08-11 10:10:03",
+      "title": "今天天气不错",
+      "topic": "天气;晴朗",
+      "type": "String",
+      "content": "今天天气不错,很晴朗"
+    },
+    {
+      "mid": 2,
+      "userId": 2,
       "publish_time": "2017-08-11 10:10:03",
       "title": "今天天气不错",
       "topic": "天气;晴朗",
@@ -429,25 +408,27 @@
 
 ## 通过时间段获取多条消息（需登录的接口）
 
-### 请求方法：`POST`
+> 请求方法：`POST`
 
-### 接口地址
+> 接口地址
 
 `http://${config.apiServer.host}/api/message/getMessageByTime`
 
-### 入参
+> 入参
 
-| 字段名     | 类型       | 说明               | 示例                  |
-|------------|------------|--------------------|-----------------------|
-| start_time | String     | 开始时间           | '2017-08-08 08:08:08' |
-| end_time   | String     | 结束时间           | '2017-08-16 16:16:16' |
-| pageIndex  | Number:Int | 分页索引（从0开始）  | 0                     |
-| pageSize   | Number:Int | 分页大小（默认为10） | 10                    |
+| 字段名     | 类型       | 是否必填 | 说明               | 示例                  |
+|------------|------------|----------|--------------------|-----------------------|
+| userId     | Number:Int | 必填     | 用户id             | 1                     |
+| start_time | String     | 必填     | 开始时间           | '2017-08-08 08:08:08' |
+| end_time   | String     | 必填     | 结束时间           | '2017-08-16 16:16:16' |
+| pageIndex  | Number:Int | 必填     | 分页索引（从0开始）  | 0                     |
+| pageSize   | Number:Int | 必填     | 分页大小（默认为10） | 10                    |
 
 
-### 入参示例
+> 入参示例
 ```json
 {
+  "userId": 1,
   "start_time": "2017-08-08 08:08:08",
   "end_time": "2017-08-16 16:16:16",
   "pageIndex": 0,
@@ -455,15 +436,15 @@
 }
 ```
 
-### 回参
+> 回参
 
-| 字段名  | 类型       | 说明     | 示例       |
-|---------|------------|----------|------------|
-| code    | Number:Int | 代码     | 0          |
-| message | String     | 说明信息 | "操作成功" |
-| data    | Array      | 数据     | []         |
+| 字段名  | 类型       | 是否必填 | 说明     | 示例       |
+|---------|------------|----------|----------|------------|
+| code    | Number:Int | 必填     | 代码     | 0          |
+| message | String     | 必填     | 说明信息 | "操作成功" |
+| data    | Array      | 必填     | 数据     | []         |
 
-### 回参示例
+> 回参示例
 
 ```json
 {
@@ -472,7 +453,16 @@
   "data": [
     {
       "mid": 1,
-      "wechat": "wechat11",
+      "userId": 1,
+      "publish_time": "2017-08-11 10:10:03",
+      "title": "今天天气不错",
+      "topic": "天气;晴朗",
+      "type": "String",
+      "content": "今天天气不错,很晴朗"
+    },
+    {
+      "mid": 2,
+      "userId": 2,
       "publish_time": "2017-08-11 10:10:03",
       "title": "今天天气不错",
       "topic": "天气;晴朗",
@@ -485,38 +475,38 @@
 
 ## 通过mid删除一条消息（需登录的接口）
 
-### 请求方法：`POST`
+> 请求方法：`POST`
 
-### 接口地址
+> 接口地址
 
 `http://${config.apiServer.host}/api/message/deleteMessageByMid`
 
-### 入参
+> 入参
 
-| 字段名 | 类型       | 说明     | 示例       |
-|--------|------------|----------|------------|
-| wechat | String     | 微信号   | 'wechat11' |
-| mid    | Number:Int | 消息索引 | 1          |
+| 字段名 | 类型       | 是否必填 | 说明     | 示例 |
+|--------|------------|----------|----------|------|
+| userId | Number:Int | 必填     | 用户id   | 1    |
+| mid    | Number:Int | 必填     | 消息索引 | 1    |
 
 
 
-### 入参示例
+> 入参示例
 ```json
 {
-  "wechat": "wechat11",
+  "userId": 1,
   "mid": 1
 }
 ```
 
-### 回参
+> 回参
 
-| 字段名  | 类型       | 说明     | 示例       |
-|---------|------------|----------|------------|
-| code    | Number:Int | 代码     | 0          |
-| message | String     | 说明信息 | "操作成功" |
-| data    | Array      | 数据     | []         |
+| 字段名  | 类型       | 是否必填 | 说明     | 示例       |
+|---------|------------|----------|----------|------------|
+| code    | Number:Int | 必填     | 代码     | 0          |
+| message | String     | 必填     | 说明信息 | "操作成功" |
+| data    | Object     | 必填     | 数据     | {}         |
 
-### 回参示例
+> 回参示例
 
 ```json
 {
