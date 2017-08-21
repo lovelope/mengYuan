@@ -24,8 +24,8 @@ const message = {
    */
   async getMessages (formData) {
     let resultData = await messageModel.getMessages({
-      'pageIndex': formData.pageIndex || 0,
-      'pageSize': formData.pageSize || 10
+      'pageIndex': formData.pageIndex,
+      'pageSize': formData.pageSize
     })
     return resultData
   },
@@ -35,11 +35,11 @@ const message = {
    * @param  {object} formData  查找的表单数据
    * @return {array}      查找结果
    */
-  async getMessageByWechat (formData) {
-    let resultData = await messageModel.getMessageByWechat({
-      'wechat': formData.wechat,
-      'pageIndex': formData.pageIndex || 0,
-      'pageSize': formData.pageSize || 10
+  async getMessageByUserId (formData) {
+    let resultData = await messageModel.getMessageByUserId({
+      'userId': formData.userId,
+      'pageIndex': formData.pageIndex,
+      'pageSize': formData.pageSize
     })
     return resultData
   },
@@ -53,23 +53,23 @@ const message = {
     let resultData = await messageModel.getMessageByTime({
       'start_time': formData.start_time,
       'end_time': formData.end_time,
-      'pageIndex': formData.pageIndex || 0,
-      'pageSize': formData.pageSize || 10
+      'pageIndex': formData.pageIndex,
+      'pageSize': formData.pageSize
     })
     return resultData
   },
 
   /**
-   * 根据类型查找某人的消息
+   * 根据用户id和类型查找某人的消息
    * @param  {object} formData 查找的表单数据
    * @return {array}          查找结果
    */
-  async getMessageByWechatAndType (formData) {
-    let resultData = await messageModel.getMessageByWechatAndType({
-      'wechat': formData.wechat,
+  async getMessageByUserIdAndType (formData) {
+    let resultData = await messageModel.getMessageByUserIdAndType({
+      'userId': formData.userId,
       'type': formData.type,
-      'pageIndex': formData.pageIndex || 0,
-      'pageSize': formData.pageSize || 10
+      'pageIndex': formData.pageIndex,
+      'pageSize': formData.pageSize
     })
     return resultData
   },
@@ -82,8 +82,8 @@ const message = {
   async getMessageByType (formData) {
     let resultData = await messageModel.getMessageByType({
       'type': formData.type,
-      'pageIndex': formData.pageIndex || 0,
-      'pageSize': formData.pageSize || 10
+      'pageIndex': formData.pageIndex,
+      'pageSize': formData.pageSize
     })
     return resultData
   },
@@ -95,7 +95,7 @@ const message = {
    */
   async deleteMessageByMid (formData) {
     let resultData = await messageModel.deleteMessageByMid({
-      'wechat': formData.wechat,
+      'userId': formData.userId,
       'mid': formData.mid
     })
     return resultData

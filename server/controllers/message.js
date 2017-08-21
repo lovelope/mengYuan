@@ -113,6 +113,37 @@ module.exports = {
   },
 
     /**
+     * 获取所有消息操作
+     * @param   {obejct} ctx 上下文对象
+     */
+  async getMessages (ctx) {
+    let formData = ctx.request.body
+    let result = {
+      code: -1,
+      message: '',
+      data: null
+    }
+
+      // 从数据库取消息
+    let messageResult = await messageController.getMessages({
+      pageIndex: formData.pageIndex || 0,
+      pageSize: formData.pageSize || 10
+    })
+
+    console.log(messageResult)
+
+    if (messageResult && messageResult.length * 1 > 0) {
+      result.code = 0
+      result.message = messageCode.SUCCESS
+      result.data = messageResult
+    } else {
+      result.message = messageCode.ERROR_SYS
+    }
+
+    ctx.body = result
+  },
+
+  /**
    * 获取某用户消息操作
    * @param   {obejct} ctx 上下文对象
    */
@@ -134,7 +165,9 @@ module.exports = {
 
     // 从数据库取消息
     let messageResult = await messageController.getMessageByUserId({
-      userId: formData.userId
+      userId: formData.targetUserId,        // targetUserId => userId
+      pageIndex: formData.pageIndex || 0,
+      pageSize: formData.pageSize || 10
     })
 
     console.log(messageResult)
@@ -172,7 +205,9 @@ module.exports = {
 
     // 从数据库取消息
     let messageResult = await messageController.getMessageByType({
-      type: formData.type
+      type: formData.type,
+      pageIndex: formData.pageIndex || 0,
+      pageSize: formData.pageSize || 10
     })
 
     console.log(messageResult)
@@ -210,10 +245,10 @@ module.exports = {
 
     // 从数据库取消息
     let messageResult = await messageController.getMessageByUserIdAndType({
-      userId: formData.userId,
+      userId: formData.targetUserId,      // targetUserId => userId
       type: formData.type,
-      pageIndex: formData.pageIndex,
-      pageSize: formData.pageSize
+      pageIndex: formData.pageIndex || 0,
+      pageSize: formData.pageSize || 10
     })
 
     console.log(messageResult)
@@ -253,8 +288,8 @@ module.exports = {
     let messageResult = await messageController.getMessageByTime({
       start_time: formData.start_time,
       end_time: formData.end_time,
-      pageIndex: formData.pageIndex,
-      pageSize: formData.pageSize
+      pageIndex: formData.pageIndex || 0,
+      pageSize: formData.pageSize || 10
     })
 
     console.log(messageResult)
@@ -298,40 +333,9 @@ module.exports = {
 
     console.log(messageResult)
 
-    if (messageResult) {
+    if (messageResult.changedRows > 0) {
       result.code = 0
       result.message = messageCode.SUCCESS
-    } else {
-      result.message = messageCode.ERROR_SYS
-    }
-
-    ctx.body = result
-  },
-
-  /**
-   * 获取所有消息操作
-   * @param   {obejct} ctx 上下文对象
-   */
-  async getMessages (ctx) {
-    let formData = ctx.request.body
-    let result = {
-      code: -1,
-      message: '',
-      data: null
-    }
-
-    // 从数据库取消息
-    let messageResult = await messageController.getMessages({
-      pageIndex: formData.pageIndex,
-      pageSize: formData.pageSize
-    })
-
-    console.log(messageResult)
-
-    if (messageResult && messageResult.length * 1 > 0) {
-      result.code = 0
-      result.message = messageCode.SUCCESS
-      result.data = messageResult
     } else {
       result.message = messageCode.ERROR_SYS
     }

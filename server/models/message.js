@@ -152,7 +152,7 @@ const message = {
   async deleteMessageByMid (options) {
     let _sql = `
     DELETE FROM message
-      WHERE mid="${options.mid}" AND userId like "${options.userId}"`
+      WHERE mid=${options.mid} AND userId=${options.userId}`
     let result = await dbUtils.query(_sql)
 
     return result
