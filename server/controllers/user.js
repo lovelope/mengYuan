@@ -1,4 +1,4 @@
-const userService = require('./../services/user-info')
+const userService = require('./../services/user')
 const userCode = require('./../codes/user')
 const wechatUtil = require('./../utils/wechat-util')
 const moment = require('moment')

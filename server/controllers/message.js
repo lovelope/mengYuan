@@ -1,6 +1,6 @@
-const messageInfoService = require('./../services/message-info')
+const messageInfoService = require('./../services/message')
 const messageCode = require('./../codes/message')
-const userInfoController = require('./user-info') // 检验用户是否登录
+const userInfoController = require('./user') // 检验用户是否登录
 const uploadUtil = require('./../utils/upload')
 const moment = require('moment')
 moment.locale('zh-CN')

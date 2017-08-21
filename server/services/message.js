@@ -2,7 +2,7 @@
  * 消息业务操作
  */
 
-const messageModel = require('./../models/message-info')
+const messageModel = require('./../models/message')
 const messageCode = require('./../codes/message')
 
 const message = {

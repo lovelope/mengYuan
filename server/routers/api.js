@@ -3,8 +3,8 @@
  */
 
 const router = require('koa-router')()
-const userInfoController = require('./../controllers/user-info')
-const messageInfoController = require('./../controllers/message-info')
+const userInfoController = require('./../controllers/user')
+const messageInfoController = require('./../controllers/message')
 
 const routers = router
   // .post('/user/signIn.json', userInfoController.signIn)
