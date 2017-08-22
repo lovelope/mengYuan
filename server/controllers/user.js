@@ -134,6 +134,7 @@ const userController = {
       data: {}
     }
 
+    console.log('userController.update - ctx.session: ', JSON.stringify(ctx.session))
     // 将openid添加到表单
     formData.openid = ctx.session.openid
 

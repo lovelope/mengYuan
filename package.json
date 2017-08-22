@@ -8,17 +8,19 @@
     "lint": "standard"
   },
   "author": "lovelope <lovelope@qq.com>",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:lovelope/mengYuan.git"
+  },
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.16.2",
     "busboy": "^0.2.14",
-    "co": "^4.6.0",
-    "debug": "^3.0.0",
     "koa": "^2.3.0",
     "koa-bodyparser": "^4.2.0",
     "koa-logger": "^3.0.1",
     "koa-mysql-session": "0.0.2",
     "koa-router": "^7.2.1",
-    "koa-send": "^4.1.0",
     "koa-session-minimal": "^3.0.4",
     "koa-static": "^4.0.1",
     "koa-views": "^6.0.2",
