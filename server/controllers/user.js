@@ -176,29 +176,29 @@ const userController = {
    * 获取用户信息
    * @param    {obejct} ctx 上下文对象
    */
-  async getLoginUserInfo (ctx) {
-    let session = ctx.session
-    let isLogin = session.isLogin
-    let userName = session.userName
-
-    console.log('session=', session)
+  async getUserInfo (ctx) {
+    let formData = ctx.request.body
+    console.log('userController.getUserInfo - session=', JSON.stringify(ctx.session))
 
     let result = {
-      success: false,
-      message: '',
+      code: -1,
+      message: userCode.ERROR_SYS,
       data: null
     }
-    if (isLogin === true && userName) {
-      let userInfo = await userService.getUserInfoByUserName(userName)
-      if (userInfo) {
-        result.data = userInfo
-        result.success = true
-      } else {
-        result.message = userCode.FAIL_USER_NO_LOGIN
+    // if (ctx.session && ctx.session.openid) {
+    let userInfo = await userService.getUserInfoByUserId(formData.userId)
+    if (userInfo) {
+      result = {
+        code: 0,
+        message: userCode.SUCCESS,
+        data: userInfo
       }
     } else {
-      // TODO
+      result.message = userCode.FAIL_USER_NO_LOGIN
     }
+    // } else {
+    //   result.message = userCode.FAIL_USER_NO_LOGIN
+    // }
 
     ctx.body = result
   },

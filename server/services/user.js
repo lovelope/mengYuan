@@ -54,18 +54,16 @@ const user = {
   },
 
   /**
-   * 根据用户名查找用户业务操作
-   * @param  {string} userName 用户名
+   * 根据用户id查找用户业务操作
+   * @param  {number} userId   用户id
    * @return {object|null}     查找结果
    */
-  async getUserInfoByUserName (userName) {
-    let resultData = await userModel.getUserInfoByUserName(userName) || {}
+  async getUserInfoByUserId (userId) {
+    let resultData = await userModel.getUserInfoByUserId(userId) || {}
     let userInfo = {
-      // id: resultData.id,
-      email: resultData.email,
-      userName: resultData.name,
-      detailInfo: resultData.detail_info,
-      createTime: resultData.create_time
+      nick: resultData.nick,
+      gender: resultData.gender,
+      tag: resultData.tag
     }
     return userInfo
   },

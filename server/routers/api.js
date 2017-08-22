@@ -11,6 +11,7 @@ const routers = router
   // .post('/user/signup', userController.signUp)
   .post('/user/auth', userController.auth)
   .post('/user/update', userController.update)
+  .post('/user/getUserInfo', userController.getUserInfo)
   .post('/message/add', messageController.add)
   .post('/message/getMessages', messageController.getMessages)
   .post('/message/getMessageByUserId', messageController.getMessageByUserId)

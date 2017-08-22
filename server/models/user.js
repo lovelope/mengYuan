@@ -61,13 +61,13 @@ const user = {
   },
 
   /**
-   * 根据用户名查找用户信息
-   * @param  {string} userName 用户账号名称
+   * 根据用户id查找用户信息
+   * @param  {number} userId   用户账号名称
    * @return {object|null}     查找结果
    */
-  async getUserInfoByUserName (userName) {
-    let result = await dbUtils.select(
-      'user', [ 'id', 'email', 'name', 'detail_info', 'create_time', 'modified_time', 'modified_time' ])
+  async getUserInfoByUserId (userId) {
+    let result = await dbUtils.findDataById(
+      'user', userId)
     if (Array.isArray(result) && result.length > 0) {
       result = result[0]
     } else {
