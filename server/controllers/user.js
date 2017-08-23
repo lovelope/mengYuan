@@ -1,8 +1,11 @@
 const userService = require('./../services/user')
 const userCode = require('./../codes/user')
 const wechatUtil = require('./../utils/wechat-util')
+const uuidUtil = require('./../utils/uuid')
+const MysqlStore = require('./../utils/mysqlStore')
 const moment = require('moment')
 
+const mysqlStore = new MysqlStore()
 moment.locale('zh-CN')
 
 const userController = {
@@ -12,11 +15,12 @@ const userController = {
    * @param  {obejct} ctx 上下文对象
    */
   async auth (ctx) {
+    console.log('userController.auth - session: ', JSON.stringify(ctx.session))
     let formData = ctx.request.body
     let result = {
       code: -1,
       message: '',
-      data: null
+      data: {}
     }
 
     // 数据合法性校验
@@ -45,21 +49,36 @@ const userController = {
 
     if (existOne) {
       // 已注册
+
       if (ctx.session.openid) {
         // 已登录
+        // 获取session
+        let sessionResult = await mysqlStore.get(ctx.session['USER_SID'])
 
+        // result.data.session = sessionResult // TODO: 生产环境要删除
       } else {
         // 未登录或登录过期
-        ctx.session = {
-          openid: formData.openid,
-          WECHAT_SESSION: formData.session_key
-        }
+        // ctx.session = {
+        //   openid: formData.openid,
+        //   WECHAT_SESSION: formData.session_key
+        // }
+        let USER_SID = uuidUtil.uuidV4()
+        console.log('uuid: ', USER_SID)
+        let sessionResult = await mysqlStore.set(
+          'USER_SID:' + USER_SID,
+          {
+            openid: formData.openid,
+            WECHAT_SESSION: formData.session_key
+          },
+          30 * 60 * 1000
+        )
+
+        result.data.sessionId = USER_SID
       }
 
-      result = {
-        code: 0,
-        message: userCode.SUCCESS_WAS_LOGIN
-      }
+      result.code = 0
+      result.message = userCode.SUCCESS
+      result.data.userId = existOne.id
     } else {
       // 未注册，去注册
       let userResult = await userService.create({
@@ -70,19 +89,31 @@ const userController = {
 
       if (userResult && userResult.insertId * 1 > 0) {
         // 添加到数据库成功
-        ctx.session = {
-          openid: formData.openid,
-          WECHAT_SESSION: formData.session_key
-        }
+        // ctx.session = {
+        //   openid: formData.openid,
+        //   WECHAT_SESSION: formData.session_key
+        // }
 
-        result = {
-          code: 0,
-          message: userCode.SUCCESS
-        }
+        let USER_SID = uuidUtil.uuidV4()
+        console.log('uuid: ', USER_SID)
+        let sessionResult = await mysqlStore.set(
+          'USER_SID:' + USER_SID,
+          {
+            openid: formData.openid,
+            WECHAT_SESSION: formData.session_key
+          },
+          30 * 60 * 1000
+        )
+
+        result.data.sessionId = USER_SID
+        result.code = 0
+        result.message = userCode.SUCCESS
+        result.data.userId = userResult.insertId
       } else {
         result.message = userCode.ERROR_SYS
       }
     }
+    console.log('userController.auth - session(end): ', JSON.stringify(ctx.session))
     ctx.body = result
   },
 

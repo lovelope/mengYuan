@@ -5,25 +5,41 @@ const koaStatic = require('koa-static')
 const bodyParser = require('koa-bodyparser')
 const koaLogger = require('koa-logger')
 const session = require('koa-session-minimal')
-const MysqlStore = require('koa-mysql-session')
+// const MysqlStore = require('koa-mysql-session')
+const MysqlStore = require('./utils/mysqlStore')
 
 const ALL_CONFIG = require('./../config')
 const routers = require('./routers/index')
 
 const app = new Koa()
 
-// session存储配置
-const sessionMysqlConfig = {
-  user: ALL_CONFIG.DB.USERNAME,
-  password: ALL_CONFIG.DB.PASSWORD,
-  database: ALL_CONFIG.DB.DATABASE,
-  host: ALL_CONFIG.DB.HOST
+// 错误处理
+const handler = async (ctx, next) => {
+  try {
+    await next()
+  } catch (err) {
+    ctx.response.status = err.statusCode || err.status || 500
+    ctx.response.body = {
+      code: -1,
+      message: err.message,
+      data: null
+    }
+  }
 }
+app.use(handler)
+
+// session存储配置
+// const sessionMysqlConfig = {
+//   user: ALL_CONFIG.DB.USERNAME,
+//   password: ALL_CONFIG.DB.PASSWORD,
+//   database: ALL_CONFIG.DB.DATABASE,
+//   host: ALL_CONFIG.DB.HOST
+// }
 
 // 配置session中间件
 app.use(session({
   key: 'USER_SID',
-  store: new MysqlStore(sessionMysqlConfig)
+  store: new MysqlStore()
 }))
 
 // 配置控制台日志中间件
