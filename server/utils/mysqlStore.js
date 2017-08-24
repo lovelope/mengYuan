@@ -46,8 +46,7 @@ let getExpiresOn = function (session, ttl) {
       expiresOn = new Date(session.cookie.expires)
     }
   } else {
-    let now = new Date()
-    expiresOn = new Date(now.getTime() + ttl)
+    expiresOn = new Date(Number(new Date()) + ttl)
   }
   return expiresOn
 }
@@ -76,7 +75,7 @@ let get = function (sid) {
 
 let set = function (sid, session, ttl) {
   let _sql = 'INSERT INTO _mysql_session_store(id, expires, data) VALUES(?, ?, ?) ON DUPLICATE KEY UPDATE expires=?, data =?'
-  let expires = getExpiresOn(session, ttl).valueOf()
+  let expires = Number(getExpiresOn(session, ttl))
   let data = JSON.stringify(session)
   return query(_sql, [sid, expires, data, expires, data])
 }
