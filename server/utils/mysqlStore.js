@@ -53,7 +53,7 @@ let getExpiresOn = function (session, ttl) {
 }
 
 let cleanup = function () {
-  let now = (new Date()).valueOf()
+  let now = Number(new Date())
   let _sql = 'DELETE FROM `_mysql_session_store` WHERE expires  < ?'
   return query(_sql, [ now ])
 }
