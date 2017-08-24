@@ -170,16 +170,16 @@ const userController = {
     formData.openid = ctx.session.openid
 
     // 校验数据合法性
-    let validateResult = userService.validatorUpdate(formData)
-    if (validateResult.success === false) {
-      result.message = validateResult.message
-      ctx.body = result
-      return
-    }
+    // let validateResult = userService.validatorUpdate(formData)
+    // if (validateResult.success === false) {
+    //   result.message = validateResult.message
+    //   ctx.body = result
+    //   return
+    // }
 
     // 更新数据库
     let userResult = await userService.update({
-      openid: formData.openid,
+      id: formData.userId,
       nick: formData.nick,
       gender: formData.gender,
       language: formData.language,
@@ -187,13 +187,13 @@ const userController = {
       province: formData.province,
       country: formData.country,
       avatar: formData.avatar,
-      tag: formData.tag,
+      tag: JSON.stringify(formData.tag),
       modified_time: moment().format('YYYY-MM-DD HH:mm:ss')
     })
 
-    console.log(userResult)
+    console.log('userController.update - updateResult: ', JSON.stringify(userResult))
 
-    if (userResult && userResult.insertId * 1 > 0) {
+    if (userResult && userResult.affectedRows * 1 > 0) {
       result.code = 0
       result.message = userCode.SUCCESS
     } else {

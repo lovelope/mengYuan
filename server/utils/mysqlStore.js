@@ -22,7 +22,7 @@ let query = function (sql, values) {
         resolve(err)
       } else {
         connection.query(sql, values, (err, rows) => {
-          console.log(`\n>--- sql: ${sql} ---><\n`)
+          console.log(`\n>--- sql: ${sql} ---<\n`)
           if (err) {
             reject(err)
           } else {

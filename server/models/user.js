@@ -18,7 +18,7 @@ const user = {
    * @return {object}       mysql执行结果
    */
   async update (model) {
-    let result = await dbUtils.updateData('user', model, model.openid)
+    let result = await dbUtils.updateData('user', model, model.id)
     return result
   },
 

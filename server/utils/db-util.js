@@ -50,9 +50,9 @@ let insertData = function (table, values) {
   return query(_sql, [ table, values ])
 }
 
-let updateData = function (table, values, openid) {
-  let _sql = 'UPDATE ?? SET ? WHERE openid = ?'
-  return query(_sql, [ table, values, openid ])
+let updateData = function (table, values, id) {
+  let _sql = 'UPDATE ?? SET ? WHERE id = ?'
+  return query(_sql, [ table, values, id ])
 }
 
 let deleteDataById = function (table, id) {
