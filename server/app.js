@@ -13,20 +13,20 @@ const routers = require('./routers/index')
 
 const app = new Koa()
 
-// 错误处理
-const handler = async (ctx, next) => {
-  try {
-    await next()
-  } catch (err) {
-    ctx.response.status = err.statusCode || err.status || 500
-    ctx.response.body = {
-      code: -1,
-      message: err.message,
-      data: null
-    }
-  }
-}
-app.use(handler)
+// // 错误处理
+// const handler = async (ctx, next) => {
+//   try {
+//     await next()
+//   } catch (err) {
+//     ctx.response.status = err.statusCode || err.status || 500
+//     ctx.response.body = {
+//       code: -1,
+//       message: err.message,
+//       data: null
+//     }
+//   }
+// }
+// app.use(handler)
 
 // session存储配置
 // const sessionMysqlConfig = {

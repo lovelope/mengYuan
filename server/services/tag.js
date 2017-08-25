@@ -25,13 +25,11 @@ const tag = {
    * @return {object}      更新结果
    */
   async update (tagName) {
-    let oneTag = await tagModel.getTagByTagName({
-      'tag_name': tagName
-    })
+    let oneTag = await tagModel.getTagByTagName(tagName)
     if (oneTag && oneTag.count) {
       oneTag.count++  // 计数加1
     } else {
-      let result = await tagModel.create(tag)
+      let result = await tagModel.create(tagName)
       return result
     }
     let result = await tagModel.update(oneTag)

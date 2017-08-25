@@ -1,5 +1,5 @@
 const userService = require('./../services/user')
-const tagService = require('./../services/tag')
+const tagController = require('./../controllers/tag')
 const userCode = require('./../codes/user')
 const wechatUtil = require('./../utils/wechat-util')
 const uuidUtil = require('./../utils/uuid')
@@ -180,7 +180,7 @@ const userController = {
 
     // 将tag数组转化为tag对应的id数组
     let tagNameArray = [] // 用于保存tagName的数组
-    let tagIdSet = new Set()   // 用于保存tagId的数组
+
     if (Array.isArray(formData.tag)) {
       tagNameArray = formData.tag
     } else if ((formData.tag instanceof String) && Array.isArray(JSON.parse(formData.tag))) {
@@ -191,18 +191,10 @@ const userController = {
       return
     }
 
-    tagNameArray.forEach(function (tagName) {
-      let findResult = await tagService.getTagByTagName(tagName)
-      if (findResult) {
-        let result = await tagService.update(tagName)
-        tagIdSet.add(result.id || result.insertId)
-      } else {
-        let result = await tagService.create(tagName)
-        tagIdSet.add(result.id || result.insertId)
-      }
-    })
+    // 用于保存tagId的数组
+    let tagIdArray = (await tagController.addTags(tagNameArray)).data.tagsId
 
-    console.log('userController.update - tagIdSet: ', JSON.stringify(tagIdSet))
+    console.log('userController.update - tagIdArray: ', JSON.stringify(tagIdArray))
     // formData.tag = new Array(tagIdSet)
 
     // 更新数据库
@@ -215,7 +207,7 @@ const userController = {
       province: formData.province,
       country: formData.country,
       avatar: formData.avatar,
-      tag: formData.tag,
+      tag: JSON.stringify(tagIdArray),
       modified_time: moment().format('YYYY-MM-DD HH:mm:ss')
     })
 
