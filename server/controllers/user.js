@@ -178,6 +178,9 @@ const userController = {
     //   return
     // }
 
+    // 获取旧的标签信息
+    let oldTags = JSON.parse((await userService.getUserInfoByUserId(formData.userId)).tag)
+
     // 将tag数组转化为tag对应的id数组
     let tagNameArray = [] // 用于保存tagName的数组
 
@@ -192,7 +195,7 @@ const userController = {
     }
 
     // 用于保存tagId的数组
-    let tagIdArray = (await tagController.addTags(tagNameArray)).data.tagsId
+    let tagIdArray = (await tagController.addTags(tagNameArray, oldTags)).data.tagsId
 
     console.log('userController.update - tagIdArray: ', JSON.stringify(tagIdArray))
     // formData.tag = new Array(tagIdSet)
