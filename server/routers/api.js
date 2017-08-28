@@ -5,13 +5,15 @@
 const router = require('koa-router')()
 const userController = require('./../controllers/user')
 const messageController = require('./../controllers/message')
+const chatController = require('./../controllers/chat')
 
 const routers = router
-  // .post('/user/signIn.json', userController.signIn)
-  // .post('/user/signup', userController.signUp)
+  // 用户相关路由
   .post('/user/auth', userController.auth)
   .post('/user/update', userController.update)
   .post('/user/getUserInfo', userController.getUserInfo)
+
+  // 消息动态相关路由
   .post('/message/add', messageController.add)
   .post('/message/getMessages', messageController.getMessages)
   .post('/message/getMessageByUserId', messageController.getMessageByUserId)
@@ -20,5 +22,10 @@ const routers = router
   .post('/message/getMessageByTime', messageController.getMessageByTime)
   .post('/message/deleteMessageByMid', messageController.deleteMessageByMid)
   .post('/message/upload', messageController.upload)
+
+  // 聊天记录相关路由
+  .post('/chat/add', chatController.add)
+  .post('/chat/getChatlogs', chatController.getChatlogs)
+  .post('/chat/getChatByFromAndTo', chatController.getChatByFromAndTo)
 
 module.exports = routers

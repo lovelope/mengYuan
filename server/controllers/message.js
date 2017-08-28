@@ -130,7 +130,7 @@ module.exports = {
       pageSize: formData.pageSize || 10
     })
 
-    console.log(messageResult)
+    console.log('messageController.getMessages - messageResult:', JSON.stringify(messageResult))
 
     if (messageResult && messageResult.length * 1 > 0) {
       result.code = 0

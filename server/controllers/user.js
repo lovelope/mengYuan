@@ -4,10 +4,12 @@ const userCode = require('./../codes/user')
 const wechatUtil = require('./../utils/wechat-util')
 const uuidUtil = require('./../utils/uuid')
 const MysqlStore = require('./../utils/mysqlStore')
-const moment = require('moment')
 
 const mysqlStore = new MysqlStore()
+
+const moment = require('moment')
 moment.locale('zh-CN')
+
 
 const userController = {
 
