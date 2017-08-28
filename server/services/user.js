@@ -5,6 +5,7 @@
 // const validator = require('validator')
 const userModel = require('./../models/user')
 const userCode = require('./../codes/user')
+const userUtil = require('../utils/user-util')
 
 const user = {
 
@@ -25,6 +26,16 @@ const user = {
    */
   async update (user) {
     let result = await userModel.update(user)
+    return result
+  },
+
+  /**
+   * 获取推荐列表
+   * @param {Number:Int} userId 用户id
+   */
+  async getRecommend (userId) {
+    let result = await userUtil.getSameInterestUsers(userId)
+    console.log('userService.getRecommend - result: ', JSON.stringify(result))
     return result
   },
 

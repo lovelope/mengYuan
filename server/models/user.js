@@ -74,6 +74,17 @@ const user = {
       result = null
     }
     return result
+  },
+
+  /**
+   * 批量获取用户信息
+   * @param {object} options 筛选项
+   */
+  async getUserInfos (options) {
+    let pageIndex = parseInt(options.pageIndex)
+    let pageSize = parseInt(options.pageSize)
+    let result = await dbUtils.findDataByPage('user', '*', pageIndex * pageSize, pageSize)
+    return result
   }
 
 }

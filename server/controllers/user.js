@@ -10,7 +10,6 @@ const mysqlStore = new MysqlStore()
 const moment = require('moment')
 moment.locale('zh-CN')
 
-
 const userController = {
 
   /**
@@ -213,6 +212,7 @@ const userController = {
       country: formData.country,
       avatar: formData.avatar,
       tag: JSON.stringify(tagIdArray),
+      recommend: formData.recommend,
       modified_time: moment().format('YYYY-MM-DD HH:mm:ss')
     })
 
@@ -224,6 +224,42 @@ const userController = {
     } else {
       result.message = userCode.ERROR_SYS
     }
+
+    ctx.body = result
+  },
+
+  /**
+   * 获取推荐好友列表
+   * @param {object} ctx 上下文环境
+   */
+  async recommend (ctx) {
+    let formData = ctx.request.body
+    console.log('userController.getUserInfo - session=', JSON.stringify(ctx.session))
+
+    let result = {
+      code: -1,
+      message: userCode.ERROR_SYS,
+      data: null
+    }
+    // if (ctx.session && ctx.session.openid) {
+
+    // [{userId: 1, userInfo: {}, rate: 0.9},{userId: 2, userInfo: {}, rate: 0.8}]
+    let recommendList = await userService.getRecommend(formData.userId)
+
+    if (recommendList) {
+      result = {
+        code: 0,
+        message: userCode.SUCCESS,
+        data: recommendList
+      }
+    } else {
+      // 无推荐时随机推荐异性好友
+      // @TODO
+      result.message = userCode.ERROR_RECOMMEND
+    }
+    // } else {
+    //   result.message = userCode.FAIL_USER_NO_LOGIN
+    // }
 
     ctx.body = result
   },
@@ -248,6 +284,37 @@ const userController = {
         code: 0,
         message: userCode.SUCCESS,
         data: userInfo
+      }
+    } else {
+      result.message = userCode.FAIL_USER_NO_LOGIN
+    }
+    // } else {
+    //   result.message = userCode.FAIL_USER_NO_LOGIN
+    // }
+
+    ctx.body = result
+  },
+
+  /**
+   * 获取萌友列表
+   * @param    {obejct} ctx 上下文对象
+   */
+  async getFriends (ctx) {
+    let formData = ctx.request.body
+    console.log('userController.getUserInfo - session=', JSON.stringify(ctx.session))
+
+    let result = {
+      code: -1,
+      message: userCode.ERROR_SYS,
+      data: null
+    }
+    // if (ctx.session && ctx.session.openid) {
+    let friends = await userService.getFriends(formData.userId)
+    if (friends) {
+      result = {
+        code: 0,
+        message: userCode.SUCCESS,
+        data: friends
       }
     } else {
       result.message = userCode.FAIL_USER_NO_LOGIN

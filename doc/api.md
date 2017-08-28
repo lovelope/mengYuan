@@ -73,17 +73,18 @@
 
 > 入参
 
-| 字段名   | 类型                   | 是否必填 | 说明     | 示例                                                                                                                         |
-|----------|------------------------|----------|----------|------------------------------------------------------------------------------------------------------------------------------|
-| userId   | Number:Int             | 必填     | 用户id   | 1                                                                                                                            |
-| nick     | String                 | 必填     | 微信昵称 | "Clare Chen"                                                                                                                 |
-| gender   | enum('MAIL', 'FEMAIL') | 必填     | 性别     | "MAIL"                                                                                                                       |
-| language | String                 | 必填     | 语言     | "zh_CN"                                                                                                                      |
-| city     | String                 | 必填     | 市       | "Xi'an"                                                                                                                      |
-| province | String                 | 必填     | 省       | "Shaanxi"                                                                                                                     |
-| country  | String                 | 必填     | 国       | "China"                                                                                                                         |
-| avatar   | String                 | 必填     | 头像链接 | "http://wx.qlogo.cn/mmopen/vi_32/1vZvI39NWFQ9XM4LtQpFrQJ1xlgZxx3w7bQxKARol6503Iuswjjn6nIGBiaycAjAtpujxyzYsrztuuICqIM5ibXQ/0" |
-| tag      | Array                  | 必填     | 标签     | ["乐观","王者荣耀","游泳"]                                                                                                   |
+| 字段名    | 类型                   | 是否必填 | 说明         | 示例                                                                                                                         |
+|-----------|------------------------|----------|--------------|------------------------------------------------------------------------------------------------------------------------------|
+| userId    | Number:Int             | 必填     | 用户id       | 1                                                                                                                            |
+| nick      | String                 | 必填     | 微信昵称     | "Clare Chen"                                                                                                                 |
+| gender    | enum('MAIL', 'FEMAIL') | 必填     | 性别         | "MAIL"                                                                                                                       |
+| language  | String                 | 必填     | 语言         | "zh_CN"                                                                                                                      |
+| city      | String                 | 必填     | 市           | "Xi'an"                                                                                                                      |
+| province  | String                 | 必填     | 省           | "Shaanxi"                                                                                                                    |
+| country   | String                 | 必填     | 国           | "China"                                                                                                                      |
+| avatar    | String                 | 必填     | 头像链接     | "http://wx.qlogo.cn/mmopen/vi_32/1vZvI39NWFQ9XM4LtQpFrQJ1xlgZxx3w7bQxKARol6503Iuswjjn6nIGBiaycAjAtpujxyzYsrztuuICqIM5ibXQ/0" |
+| tag       | Array                  | 必填     | 标签         | ["乐观","王者荣耀","游泳"]                                                                                                   |
+| recommend | Number:Int             | 必填     | 推荐人userId | 28                                                                                                                           |
 
 > 入参示例
 
@@ -97,7 +98,8 @@
   "province": "Shaanxi",
   "country": "China",
   "avatar": "http://wx.qlogo.cn/mmopen/vi_32/1vZvI39NWFQ9XM4LtQpFrQJ1xlgZxx3w7bQxKARol6503Iuswjjn6nIGBiaycAjAtpujxyzYsrztuuICqIM5ibXQ/0",
-  "tag": ["乐观","王者荣耀","游泳"]
+  "tag": ["乐观","王者荣耀","游泳"],
+  "recommend": 28
 }
 ```
 
