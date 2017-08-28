@@ -40,6 +40,15 @@ const user = {
   },
 
   /**
+   * 获取萌友列表
+   * @param {Number:Int} userId 用户id
+   */
+  async getFriends (formData) {
+    let result = await userModel.getFriends(formData)
+    return result
+  },
+
+  /**
    * 查找存在用户信息
    * @param  {object} formData 查找的表单数据
    * @return {object|null}      查找结果

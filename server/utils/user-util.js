@@ -5,6 +5,7 @@
 
 // const ALL_CONFIG = require('../../config')
 const userModel = require('../models/user')
+const tagModel = require('../models/tag')
 
 const userUtil = {
 /**
@@ -40,9 +41,18 @@ const userUtil = {
             let intersection = userTag.filter(v => tmpUserTag.includes(v))
             let rate = intersection.length / userTagLength
             if (userList[i].id !== userId) {
+              let tagNames = (async function () {
+                let result = await tagModel.getTagsByIds(userList[i].tag) || []
+                return result
+              })()
               result.push({
                 userId: userList[i].id,
-                userInfo: userList[i],
+                userInfo: {
+                  nick: userList[i].nick,
+                  tag: tagNames,
+                  gender: userList[i].gender,
+                  avatar: userList[i].avatar
+                },
                 rate: rate
               })
             }

@@ -85,6 +85,26 @@ const user = {
     let pageSize = parseInt(options.pageSize)
     let result = await dbUtils.findDataByPage('user', '*', pageIndex * pageSize, pageSize)
     return result
+  },
+
+  async getFriends (options) {
+    let pageIndex = parseInt(options.pageIndex)
+    let pageSize = parseInt(options.pageSize)
+    let result = []
+    let friendsIds = JSON.parse((await this.getUserInfoByUserId(options.userId)).friends)
+    if (!friendsIds) {
+      return []
+    }
+    if (pageIndex * pageSize > friendsIds.length) {
+      return []
+    }
+    let startIndex = pageIndex * pageSize
+    let endIndex = startIndex + pageSize
+    endIndex = endIndex < friendsIds.length ? endIndex : friendsIds.length
+    for (let i = startIndex; i < endIndex; i++) {
+      result.push(await this.getUserInfoByUserId(friendsIds[i]))
+    }
+    return result
   }
 
 }

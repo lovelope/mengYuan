@@ -301,7 +301,7 @@ const userController = {
    */
   async getFriends (ctx) {
     let formData = ctx.request.body
-    console.log('userController.getUserInfo - session=', JSON.stringify(ctx.session))
+    console.log('userController.getFriends - session=', JSON.stringify(ctx.session))
 
     let result = {
       code: -1,
@@ -309,7 +309,11 @@ const userController = {
       data: null
     }
     // if (ctx.session && ctx.session.openid) {
-    let friends = await userService.getFriends(formData.userId)
+    let friends = await userService.getFriends({
+      'userId': formData.userId,
+      'pageIndex': formData.pageIndex || 0,
+      'pageSize': formData.pageSize || 10
+    })
     if (friends) {
       result = {
         code: 0,
@@ -317,7 +321,7 @@ const userController = {
         data: friends
       }
     } else {
-      result.message = userCode.FAIL_USER_NO_LOGIN
+      result.message = userCode.ERROR_NO_FRIENDS
     }
     // } else {
     //   result.message = userCode.FAIL_USER_NO_LOGIN

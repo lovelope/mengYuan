@@ -39,6 +39,8 @@ const userCode = {
 
   ERROR_TAG_FORMAT: '标签格式错误',
 
+  ERROR_NO_FRIENDS: '您还没有萌友',
+
   ERROR_SYS: '系统错误',
 
   FAIL_EMAIL_IS_EXIST: '邮箱已被注册',

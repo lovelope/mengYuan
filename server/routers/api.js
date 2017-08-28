@@ -13,8 +13,7 @@ const routers = router
   .post('/user/update', userController.update)
   .post('/user/recommend', userController.recommend)
   .post('/user/getUserInfo', userController.getUserInfo)
-  // 萌友
-  // .post('/user/getFriends', userController.getFriends)
+  .post('/user/getFriends', userController.getFriends)   // 萌友
 
   // 消息动态相关路由
   .post('/message/add', messageController.add)

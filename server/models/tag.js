@@ -58,6 +58,23 @@ const tag = {
       result = null
     }
     return result
+  },
+
+  /**
+   * 根据id数组获取标签名称数组
+   * @param {array} ids 标签id数组
+   */
+  async getTagsByIds (ids) {
+    let tagArray = []
+    console.log()
+    await (
+      (async function () {
+        for (let i = 0, len = ids.length; i < len; i++) {
+          tagArray.push((await this.getTagById(ids[i])).tag_name)
+        }
+      })()
+    )
+    return tagArray
   }
 
 }
