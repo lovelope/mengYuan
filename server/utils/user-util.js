@@ -33,31 +33,27 @@ const userUtil = {
 
       if (userList.length < pageSize) {
         // 筛选共同兴趣
-        await ((function () {
-          for (let i = 0; userList[i]; i++) {
-            console.log('userUtils.getSameInterestUsers - userList[i]: ', JSON.stringify(userList[i]))
-            let tmpUserTag = JSON.parse(userList[i].tag)
+        for (let i = 0; userList[i]; i++) {
+          console.log('userUtils.getSameInterestUsers - userList[i]: ', JSON.stringify(userList[i]))
+          let tmpUserTag = JSON.parse(userList[i].tag)
             // 查找两数组相同元素
-            let intersection = userTag.filter(v => tmpUserTag.includes(v))
-            let rate = intersection.length / userTagLength
-            if (userList[i].id !== userId) {
-              let tagNames = (async function () {
-                let result = await tagModel.getTagsByIds(userList[i].tag) || []
-                return result
-              })()
-              result.push({
-                userId: userList[i].id,
-                userInfo: {
-                  nick: userList[i].nick,
-                  tag: tagNames,
-                  gender: userList[i].gender,
-                  avatar: userList[i].avatar
-                },
-                rate: rate
-              })
-            }
+          let intersection = userTag.filter(v => tmpUserTag.includes(v))
+          let rate = intersection.length / userTagLength
+          if (userList[i].id !== userId) {
+            let tagNames = await tagModel.getTagsByIds(userList[i].tag)
+
+            result.push({
+              userId: userList[i].id,
+              userInfo: {
+                nick: userList[i].nick,
+                tag: tagNames,
+                gender: userList[i].gender,
+                avatar: userList[i].avatar
+              },
+              rate: rate
+            })
           }
-        })())
+        }
       }
 
       result.sort(this.compare)     // 排序

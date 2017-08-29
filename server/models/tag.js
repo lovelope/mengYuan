@@ -1,6 +1,6 @@
 const dbUtils = require('./../utils/db-util')
 
-const tag = {
+const tagModel = {
 
   /**
    * 数据库创建标签
@@ -65,18 +65,24 @@ const tag = {
    * @param {array} ids 标签id数组
    */
   async getTagsByIds (ids) {
+    let me = this
     let tagArray = []
-    console.log()
+    if (!Array.isArray(ids)) {
+      ids = JSON.parse(ids)
+    }
+    console.log('tagModel.getTagsByIds - ids: ', JSON.stringify(ids))
     await (
       (async function () {
         for (let i = 0, len = ids.length; i < len; i++) {
-          tagArray.push((await this.getTagById(ids[i])).tag_name)
+          console.log(`tagModel.getTagsByIds - i: ${i}`)
+          tagArray.push((await me.getTagById(ids[i])).tag_name)
         }
       })()
     )
+    console.log('tagModel.getTagsByIds - tagArray: ', JSON.stringify(tagArray))
     return tagArray
   }
 
 }
 
-module.exports = tag
+module.exports = tagModel
