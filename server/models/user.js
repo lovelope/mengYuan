@@ -1,4 +1,5 @@
 const dbUtils = require('./../utils/db-util')
+const tagModel = require('./tag')
 
 const user = {
 
@@ -102,7 +103,14 @@ const user = {
     let endIndex = startIndex + pageSize
     endIndex = endIndex < friendsIds.length ? endIndex : friendsIds.length
     for (let i = startIndex; i < endIndex; i++) {
-      result.push(await this.getUserInfoByUserId(friendsIds[i]))
+      let friend = await this.getUserInfoByUserId(friendsIds[i])
+      let tagNames = await tagModel.getTagsByIds(friend.tag)
+      result.push({
+        nick: friend.nick,
+        gender: friend.gender,
+        avatar: friend.avatar,
+        tag: tagNames
+      })
     }
     return result
   }
