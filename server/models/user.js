@@ -68,7 +68,7 @@ const user = {
    */
   async getUserInfoByUserId (userId) {
     let result = await dbUtils.findDataById('user', userId)
-    let tagNames = await tagModel.getTagsByIds(result.tag)
+    let tagNames = await tagModel.getTagsByIds(JSON.parse(result.tag))
     result.push({
       nick: result.nick,
       gender: result.gender,
