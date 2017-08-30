@@ -115,7 +115,7 @@ const user = {
    * @param  {object} userInfo 用户更新数据
    * @return {object}          校验结果
    */
-  validatorSignUp (userInfo) {
+  validatorUpdate (userInfo) {
     let result = {
       success: false,
       message: ''
@@ -152,7 +152,7 @@ const user = {
     }
 
     // 国
-    if (userInfo.country && !/^[a-zA-Z']{2,64}{2}$/.test(userInfo.country)) {
+    if (userInfo.country && !/^[a-zA-Z]{2,64}$/.test(userInfo.country)) {
       result.message = userCode.ERROR_COUNTRY
       return result
     }
@@ -164,7 +164,7 @@ const user = {
     }
 
     // 标签
-    if (userInfo.tag && !/^[a-zA-Z;[\]\s\u4e00-\u9fa5]{0,80}$/gm.test(JSON.stringify(userInfo.tag))) {
+    if (userInfo.tag && !/^[^<>]{0,80}$/gm.test(JSON.stringify(userInfo.tag))) {
       result.message = userCode.ERROR_TAG
       return result
     }

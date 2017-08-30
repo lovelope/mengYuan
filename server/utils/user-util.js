@@ -16,7 +16,7 @@ const userUtil = {
     let userInfo = await userModel.getUserInfoByUserId(userId)
     console.log('userUtils.getSameInterestUsers - userInfo: ', JSON.stringify(userInfo))
 
-    let userTag = (userInfo.tag instanceof String) ? JSON.parse(userInfo.tag) : userInfo.tag
+    let userTag = (typeof userInfo.tag === 'string') ? JSON.parse(userInfo.tag) : userInfo.tag
 
     let userTagLength = userTag.length
 
@@ -37,12 +37,12 @@ const userUtil = {
         // 筛选共同兴趣
         for (let i = 0; userList[i]; i++) {
           console.log('userUtils.getSameInterestUsers - userList[i]: ', JSON.stringify(userList[i]))
-          let tmpUserTag = (userList[i].tag instanceof String) ? JSON.parse(userList[i].tag) : userList[i].tag
+          let tmpUserTag = (typeof userList[i].tag === 'string') ? JSON.parse(userList[i].tag) : userList[i].tag
             // 查找两数组相同元素
           let intersection = userTag.filter(v => tmpUserTag.includes(v))
           let rate = intersection.length / userTagLength
           if (userList[i].id !== userId) {
-            let tagNames = await tagModel.getTagsByIds(userList[i].tag)
+            let tagNames = await tagModel.getTagsByIds(tmpUserTag)
 
             result.push({
               userId: userList[i].id,

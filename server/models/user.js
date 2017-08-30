@@ -74,7 +74,7 @@ const user = {
       result = null
     }
     if (result) {
-      let tagNames = (result.tag instanceof String) ? JSON.parse(result.tag) : result.tag
+      let tagNames = (typeof result.tag === 'string') ? JSON.parse(result.tag) : result.tag
       tagNames = await tagModel.getTagsByIds(tagNames)
       result = {
         nick: result.nick,
@@ -115,7 +115,8 @@ const user = {
     endIndex = endIndex < friendsIds.length ? endIndex : friendsIds.length
     for (let i = startIndex; i < endIndex; i++) {
       let friend = await this.getUserInfoByUserId(friendsIds[i])
-      let tagNames = await tagModel.getTagsByIds(friend.tag)
+      let tagNames = (typeof friend.tag === 'string') ? JSON.parse(friend.tag) : friend.tag
+      tagNames = await tagModel.getTagsByIds(tagNames)
       result.push({
         nick: friend.nick,
         gender: friend.gender,

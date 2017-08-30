@@ -172,25 +172,23 @@ const userController = {
     formData.openid = ctx.session.openid
 
     // 校验数据合法性
-    // let validateResult = userService.validatorUpdate(formData)
-    // if (validateResult.success === false) {
-    //   result.message = validateResult.message
-    //   ctx.body = result
-    //   return
-    // }
+    let validateResult = userService.validatorUpdate(formData)
+    if (validateResult.success === false) {
+      result.message = validateResult.message
+      ctx.body = result
+      return
+    }
 
     // 获取旧的标签信息
     let oldTags = (await userService.getUserInfoByUserId(formData.userId)).tag
-    if (oldTags instanceof String) {
-      oldTags = JSON.parse(oldTags)
-    }
+    oldTags = (typeof oldTags === 'string') ? JSON.parse(oldTags) : oldTags
 
     // 将tag数组转化为tag对应的id数组
     let tagNameArray = [] // 用于保存tagName的数组
 
     if (Array.isArray(formData.tag)) {
       tagNameArray = formData.tag
-    } else if ((formData.tag instanceof String) && Array.isArray(JSON.parse(formData.tag))) {
+    } else if ((typeof formData.tag === 'string') && Array.isArray(JSON.parse(formData.tag))) {
       tagNameArray = JSON.parse(formData.tag)
     } else {
       result.message = userCode.ERROR_TAG_FORMAT

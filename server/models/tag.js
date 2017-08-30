@@ -67,12 +67,12 @@ const tagModel = {
   async getTagsByIds (ids) {
     let me = this
     let tagArray = []
-    ids = (ids instanceof String) ? JSON.parse(ids) : ids
+    ids = (typeof ids === 'string') ? JSON.parse(ids) : ids
     console.log('tagModel.getTagsByIds - ids: ', JSON.stringify(ids))
     await (
       (async function () {
-        for (let i = 0, len = ids.length; i < len; i++) {
-          console.log(`tagModel.getTagsByIds - i: ${i}`)
+        for (let i = 0; i < ids.length; i++) {
+          console.log(`tagModel.getTagsByIds - ids[i]: ${ids[i]}`)
           tagArray.push((await me.getTagById(ids[i])).tag_name)
         }
       })()
