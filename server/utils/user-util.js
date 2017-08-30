@@ -37,7 +37,7 @@ const userUtil = {
         // 筛选共同兴趣
         for (let i = 0; userList[i]; i++) {
           console.log('userUtils.getSameInterestUsers - userList[i]: ', JSON.stringify(userList[i]))
-          let tmpUserTag = JSON.parse(userList[i].tag)
+          let tmpUserTag = (userList[i].tag instanceof String) ? JSON.parse(userList[i].tag) : userList[i].tag
             // 查找两数组相同元素
           let intersection = userTag.filter(v => tmpUserTag.includes(v))
           let rate = intersection.length / userTagLength
