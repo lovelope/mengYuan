@@ -67,13 +67,19 @@ const user = {
    * @return {object|null}     查找结果
    */
   async getUserInfoByUserId (userId) {
-    let result = await dbUtils.findDataById(
-      'user', userId)
-    if (Array.isArray(result) && result.length > 0) {
-      result = result[0]
-    } else {
-      result = null
-    }
+    let result = await dbUtils.findDataById('user', userId)
+    let tagNames = await tagModel.getTagsByIds(result.tag)
+    result.push({
+      nick: result.nick,
+      gender: result.gender,
+      avatar: result.avatar,
+      tag: tagNames
+    })
+    // if (Array.isArray(result) && result.length > 0) {
+    //   result = result[0]
+    // } else {
+    //   result = null
+    // }
     return result
   },
 
