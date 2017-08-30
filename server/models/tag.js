@@ -73,7 +73,10 @@ const tagModel = {
       (async function () {
         for (let i = 0; i < ids.length; i++) {
           console.log(`tagModel.getTagsByIds - ids[i]: ${ids[i]}`)
-          tagArray.push((await me.getTagById(ids[i])).tag_name)
+          let tag = await me.getTagById(ids[i])
+          if (tag) {
+            tagArray.push(tag.tag_name)
+          }
         }
       })()
     )

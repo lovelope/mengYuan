@@ -80,7 +80,8 @@ const user = {
         nick: result.nick,
         gender: result.gender,
         avatar: result.avatar,
-        tag: tagNames
+        tag: tagNames,
+        friends: result.friends
       }
     }
 
@@ -100,10 +101,16 @@ const user = {
   },
 
   async getFriends (options) {
+    let me = this
     let pageIndex = parseInt(options.pageIndex)
     let pageSize = parseInt(options.pageSize)
     let result = []
-    let friendsIds = JSON.parse((await this.getUserInfoByUserId(options.userId)).friends)
+    // console.log('userModel.getFriends - options: ', JSON.stringify(options))
+
+    let friendsIds = (await me.getUserInfoByUserId(options.userId)).friends
+    // console.log('userModel.getFriends - friendsIds: ', JSON.stringify(friendsIds))
+    friendsIds = (typeof friendsIds === 'string') ? JSON.parse(friendsIds) : friendsIds
+    // console.log('userModel.getFriends - Array.isArray(friendsIds): ', Array.isArray(friendsIds))
     if (!friendsIds) {
       return []
     }
@@ -114,9 +121,9 @@ const user = {
     let endIndex = startIndex + pageSize
     endIndex = endIndex < friendsIds.length ? endIndex : friendsIds.length
     for (let i = startIndex; i < endIndex; i++) {
-      let friend = await this.getUserInfoByUserId(friendsIds[i])
+      let friend = await me.getUserInfoByUserId(friendsIds[i])
+      console.log('userModel.getFriends - friend: ', JSON.stringify(friend))
       let tagNames = (typeof friend.tag === 'string') ? JSON.parse(friend.tag) : friend.tag
-      tagNames = await tagModel.getTagsByIds(tagNames)
       result.push({
         nick: friend.nick,
         gender: friend.gender,
