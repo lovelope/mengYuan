@@ -180,7 +180,10 @@ const userController = {
     // }
 
     // 获取旧的标签信息
-    let oldTags = JSON.parse((await userService.getUserInfoByUserId(formData.userId)).tag)
+    let oldTags = (await userService.getUserInfoByUserId(formData.userId)).tag
+    if (oldTags instanceof String) {
+      oldTags = JSON.parse(oldTags)
+    }
 
     // 将tag数组转化为tag对应的id数组
     let tagNameArray = [] // 用于保存tagName的数组
