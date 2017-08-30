@@ -67,9 +67,7 @@ const tagModel = {
   async getTagsByIds (ids) {
     let me = this
     let tagArray = []
-    if (!Array.isArray(ids)) {
-      ids = JSON.parse(ids)
-    }
+    ids = (ids instanceof String) ? JSON.parse(ids) : ids
     console.log('tagModel.getTagsByIds - ids: ', JSON.stringify(ids))
     await (
       (async function () {
