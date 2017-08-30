@@ -93,7 +93,7 @@ const user = {
   async getUserInfos (options) {
     let pageIndex = parseInt(options.pageIndex)
     let pageSize = parseInt(options.pageSize)
-    let result = await dbUtils.findDataByPage('user', '*', pageIndex * pageSize, pageSize)
+    let result = await dbUtils.findDataByPage('user', '\'*\'', pageIndex * pageSize, pageSize)
     return result
   },
 
