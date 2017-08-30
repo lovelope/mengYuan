@@ -74,7 +74,8 @@ const user = {
       result = null
     }
     if (result) {
-      let tagNames = await tagModel.getTagsByIds(JSON.parse(result.tag))
+      let tagNames = (result.tag instanceof String) ? JSON.parse(result.tag) : result.tag
+      tagNames = await tagModel.getTagsByIds(tagNames)
       result = {
         nick: result.nick,
         gender: result.gender,
