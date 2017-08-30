@@ -75,12 +75,12 @@ const user = {
     }
     if (result) {
       let tagNames = await tagModel.getTagsByIds(JSON.parse(result.tag))
-      result.push({
+      result = {
         nick: result.nick,
         gender: result.gender,
         avatar: result.avatar,
         tag: tagNames
-      })
+      }
     }
 
     return result
