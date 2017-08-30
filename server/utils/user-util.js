@@ -15,7 +15,9 @@ const userUtil = {
   async getSameInterestUsers (userId) {
     let userInfo = await userModel.getUserInfoByUserId(userId)
     console.log('userUtils.getSameInterestUsers - userInfo: ', JSON.stringify(userInfo))
-    let userTag = JSON.parse(userInfo.tag)
+
+    let userTag = (userInfo.tag instanceof String) ? JSON.parse(userInfo.tag) : userInfo.tag
+
     let userTagLength = userTag.length
 
     // [{userId: 1, userInfo: {}, rate: 0.9},{userId: 2, userInfo: {}, rate: 0.8}]
