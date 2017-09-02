@@ -1,6 +1,6 @@
 const path = require('path')
 const Koa = require('koa')
-const views = require('koa-views')
+// const views = require('koa-views')
 const koaStatic = require('koa-static')
 const bodyParser = require('koa-bodyparser')
 const koaLogger = require('koa-logger')
@@ -14,19 +14,19 @@ const routers = require('./routers/index')
 const app = new Koa()
 
 // // 错误处理
-// const handler = async (ctx, next) => {
-//   try {
-//     await next()
-//   } catch (err) {
-//     ctx.response.status = err.statusCode || err.status || 500
-//     ctx.response.body = {
-//       code: -1,
-//       message: err.message,
-//       data: null
-//     }
-//   }
-// }
-// app.use(handler)
+const handler = async (ctx, next) => {
+  try {
+    await next()
+  } catch (err) {
+    ctx.response.status = err.statusCode || err.status || 500
+    ctx.response.body = {
+      code: -1,
+      message: err.message,
+      data: null
+    }
+  }
+}
+app.use(handler)
 
 // session存储配置
 // const sessionMysqlConfig = {
@@ -54,9 +54,9 @@ app.use(koaStatic(
 ))
 
 // 配置服务端模板渲染引擎中间件
-app.use(views(path.join(__dirname, './views'), {
-  extension: 'ejs'
-}))
+// app.use(views(path.join(__dirname, './views'), {
+//   extension: 'ejs'
+// }))
 
 // 打印请求体
 app.use(async (ctx, next) => {
