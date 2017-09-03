@@ -85,6 +85,7 @@ const userController = {
       // 未注册，去注册
       let userResult = await userService.create({
         openid: formData.openid,
+        tag: '[]',
         create_time: moment().format('YYYY-MM-DD HH:mm:ss'),
         level: 2
       })
